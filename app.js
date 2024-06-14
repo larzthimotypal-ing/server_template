@@ -1,7 +1,11 @@
-//***DEPENDENCIES***//
+//<--DEPENDENCIES-->//
 //Libraries
-require("dotenv").config();
-const express = require("express");
+import dotenv from "dotenv/config";
+import express from "express";
+
+//Utilities
+import { logger } from "./logger.js";
+//<--DEPENDENCIES-->//
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
@@ -11,5 +15,8 @@ app.get("", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App Listening on PORT ${PORT}`);
+  logger.info(
+    { STATUS: "LISTENING", PORT },
+    `Server successfully running on port ${PORT}`
+  );
 });
