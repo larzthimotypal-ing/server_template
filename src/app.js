@@ -8,6 +8,7 @@ import cors from "cors";
 import logger from "./global/utilities/logger.js";
 //Middlewares
 import setResponseHeadersMW from "./global/middlewares/setResponseHeader.mw.js";
+import errorMW from "./global/middlewares/error.mw.js";
 //Routes
 import example from "./routes/example.rts.js";
 import apiLoggerMW from "./global/middlewares/apiLogger.mw.js";
@@ -26,6 +27,9 @@ app.use(apiLoggerMW);
 
 //Routes
 app.use("/api/example", example);
+
+//Error Middleware
+app.use(errorMW);
 
 app.listen(PORT, () => {
   logger.info(

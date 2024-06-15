@@ -22,7 +22,7 @@ export const postExampleCtrl = async (req, res, next) => {
       .status(201)
       .send({ code: ResponseCodes.SUCCESS, message: "Successful Request" });
   } catch (error) {
-    logger.error(error, "CTRL ERROR: Was not able to post example");
-    next(error);
+    logger.error("CTRL ERROR: Was not able to post example");
+    return next(error);
   }
 };

@@ -23,7 +23,7 @@ const apiLoggerMW = async (req, res, next) => {
       remotePort,
       status: "Entry",
     },
-    `$(${method})${url} [STATUS]: ENTRY`
+    `(${method})${url} [STATUS]: ENTRY`
   );
   next();
 };
