@@ -8,18 +8,24 @@ const transport = pino.transport({
   targets: [
     {
       target: "pino/file",
-      options: { destination: `${__dirname}/app.log` },
+      options: {
+        destination: `${__dirname}../../../app.log`,
+      },
+      level: process.env.FILE_LOG_LEVEL || "info",
     },
     {
       target: "pino-pretty",
+      level: process.env.CONSOLE_LOG_LEVEL || "info",
     },
   ],
 });
 
-export const logger = pino(
+const logger = pino(
   {
-    level: process.env.LOG_LEVEL || "info",
+    level: process.env.CONSOLE_LOG_LEVEL || "info",
     timestamp: pino.stdTimeFunctions.isoTime,
   },
   transport
 );
+
+export default logger;
