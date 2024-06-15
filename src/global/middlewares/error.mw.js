@@ -16,13 +16,11 @@ const errorMW = async (err, req, res, next) => {
       status: "ERROR",
       err,
     };
-    process.on("uncaughtException", (err) => {
-      if (!errorHandler.isTrustedError(err)) {
-        logDetails.status = "FATAL ERROR";
-        logger.fatal(logDetails);
-        process.exit(1);
-      }
-    });
+    if (!errorHandler.isTrustedError(err)) {
+      logDetails.status = "FATAL ERROR";
+      logger.fatal(logDetails);
+      process.exit(1);
+    }
     let actualErrMsg = null;
     try {
       actualErrMsg = JSON.parse(err.message);
