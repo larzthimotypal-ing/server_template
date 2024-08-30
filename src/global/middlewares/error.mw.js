@@ -30,7 +30,8 @@ const errorMW = async (err, req, res, next) => {
 
     logger.error(logDetails, `(${req.method})${req.url} [STATUS]: ERROR`);
     return res.status(err.httpCode).send({
-      code: ResponseCodes.FAILED,
+      success: false,
+      code: err.code,
       message: actualErrMsg,
     });
   } catch (error) {

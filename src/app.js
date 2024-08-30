@@ -9,9 +9,10 @@ import logger from "./global/utilities/logger.js";
 //Middlewares
 import setResponseHeadersMW from "./global/middlewares/setResponseHeader.mw.js";
 import errorMW from "./global/middlewares/error.mw.js";
-//Routes
-import example from "./routes/example.rts.js";
 import apiLoggerMW from "./global/middlewares/apiLogger.mw.js";
+//Routes
+import identity from "./routes/identity.rts.js";
+import elearning from "./routes/elearning.rts.js";
 //<--DEPENDENCIES-->//
 
 const app = express();
@@ -25,8 +26,14 @@ app.use(setResponseHeadersMW);
 app.use(cors());
 app.use(apiLoggerMW);
 
+//Home
+app.get("/", (req, res) => {
+  res.send("REST API Authentication and Authorization");
+});
+
 //Routes
-app.use("/api/example", example);
+app.use("/api", identity);
+app.use("/api/elearning", elearning);
 
 //Error Middleware
 app.use(errorMW);

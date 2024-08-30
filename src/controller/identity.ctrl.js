@@ -1,0 +1,54 @@
+//Constants
+import ResponseCodes from "../global/constants/responseCodes.const.js";
+//Utilities
+import logger from "../global/utilities/logger.js";
+import errorHandler from "../global/utilities/error/errorHandler.js";
+//Services
+import { loginUserSrvc, registerUserSrvc } from "../services/identity.srvc.js";
+import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
+
+export const registerUserCtrl = async (req, res, next) => {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    mobileNumber,
+    orgUnit,
+    orgNumber,
+    orgEmail,
+    position,
+  } = req.body;
+  try {
+    const result = await registerUserSrvc(email, password);
+    if (errorHandler.isTrustedError(result)) return next(result);
+    res.status(HttpStatusCodes.CREATED).json({
+      success: true,
+      message: "New User created successfully",
+      code: ResponseCodes.AUTH__REGISTRATION_SUCCESSFUL,
+      result: {
+        email,
+      },
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to register a new user");
+    next(error);
+  }
+};
+
+export const loginUserCtrl = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const result = await loginUserSrvc(email, password);
+    if (errorHandler.isTrustedError(result)) return next(result);
+    res.status(HttpStatusCodes.OK).json({
+      success: true,
+      message: "Login Successful",
+      code: ResponseCodes.AUTH__LOGIN_SUCCESSFUL,
+      result,
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to register a new user");
+    next(error);
+  }
+};
