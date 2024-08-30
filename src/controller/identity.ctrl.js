@@ -20,15 +20,20 @@ export const registerUserCtrl = async (req, res, next) => {
     position,
   } = req.body;
   try {
-    const result = await registerUserSrvc(email, password);
+    const personalInfo = { firstName, lastName, mobileNumber };
+    const orgInfo = { orgUnit, orgNumber, orgEmail, position };
+    const result = await registerUserSrvc(
+      email,
+      password,
+      personalInfo,
+      orgInfo
+    );
     if (errorHandler.isTrustedError(result)) return next(result);
     res.status(HttpStatusCodes.CREATED).json({
       success: true,
       message: "New User created successfully",
       code: ResponseCodes.AUTH__REGISTRATION_SUCCESSFUL,
-      result: {
-        email,
-      },
+      result,
     });
   } catch (error) {
     logger.trace("CTRL ERROR: Was not able to register a new user");

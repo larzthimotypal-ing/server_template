@@ -1,6 +1,7 @@
 //Libraries
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { uuid } from "uuidv4";
 //Constants
 import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
 import APIError from "../global/utilities/error/apiError.js";
@@ -8,11 +9,26 @@ import ResponseCodes from "../global/constants/responseCodes.const.js";
 //Utilities
 import logger from "../global/utilities/logger.js";
 //Repo
-import { createUser, findUserByEmail } from "../data/repo/identity.repo.js";
+import {
+  createOrgInfo,
+  createPersonalInfo,
+  createUser,
+  findOrgInfoById,
+  findPersonalInfoById,
+  findUserByEmail,
+} from "../data/repo/identity.repo.js";
 
-export const registerUserSrvc = async (email, password) => {
+export const registerUserSrvc = async (
+  email,
+  password,
+  personalInfo,
+  orgInfo
+) => {
+  const { firstName, lastName, mobileNumber } = personalInfo;
+  const { orgUnit, orgNumber, orgEmail, position } = orgInfo;
   try {
     //Check if user already exists
+    const id = uuid();
 
     const emailExists = await findUserByEmail(email);
 
@@ -27,9 +43,35 @@ export const registerUserSrvc = async (email, password) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await createUser(email, hashedPassword);
+    const user = await createUser(id, email, hashedPassword);
+    const personal = await createPersonalInfo(
+      id,
+      firstName,
+      lastName,
+      mobileNumber
+    );
+    const organization = await createOrgInfo(
+      id,
+      orgUnit,
+      orgNumber,
+      orgEmail,
+      position
+    );
 
-    return result;
+    return {
+      email: user.email,
+      personalInformation: {
+        firstName: personal.firstName,
+        lastName: personal.lastName,
+        mobileNumber: personal.mobileNumber,
+      },
+      orgInformation: {
+        unit: organization.unit,
+        number: organization.number,
+        email: organization.email,
+        position: organization.position,
+      },
+    };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to create new user");
     return new APIError(
@@ -65,12 +107,29 @@ export const loginUserSrvc = async (email, password) => {
       );
     }
     const secret = process.env.ACCESS_TOKEN_SECRET;
-    const accessToken = jwt.sign({ userId: user._id }, secret, {
+    const id = user._id;
+    const accessToken = jwt.sign({ userId: id }, secret, {
       subject: "accessApi",
       expiresIn: "30d",
     });
+    const personal = await findPersonalInfoById(id);
+    const organization = await findOrgInfoById(id);
 
-    return { email: user.email, accessToken };
+    return {
+      email: user.email,
+      accessToken,
+      personalInformation: {
+        firstName: personal.firstName,
+        lastName: personal.lastName,
+        mobileNumber: personal.mobileNumber,
+      },
+      orgInformation: {
+        unit: organization.unit,
+        number: organization.number,
+        email: organization.email,
+        position: organization.position,
+      },
+    };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to login user");
     return new APIError(

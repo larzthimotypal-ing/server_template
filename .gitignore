@@ -3,3 +3,5 @@ node_modules/
 app.log
 Users.db
 Progress.db
+OrganizationInfo.db
+PersonalInfo.db
