@@ -12,6 +12,13 @@ import {
 export const getCourseProgressCtrl = async (req, res, next) => {
   const user = req.user;
   try {
+    if (!user) {
+      return res.status(HttpStatusCodes.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized Access to Resource",
+        code: ResponseCodes.AUTH__UNAUTHORIZED_ACCESS,
+      });
+    }
     const result = await getLessonProgressSrvc(user.id);
     if (errorHandler.isTrustedError(result)) return next(result);
     return res.status(HttpStatusCodes.OK).json({

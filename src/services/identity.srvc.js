@@ -16,6 +16,7 @@ import {
   findOrgInfoById,
   findPersonalInfoById,
   findUserByEmail,
+  findUserById,
 } from "../data/repo/identity.repo.js";
 
 export const registerUserSrvc = async (
@@ -137,6 +138,64 @@ export const loginUserSrvc = async (email, password) => {
       HttpStatusCodes.INTERNAL_SERVER,
       true,
       "Error in logging in user"
+    );
+  }
+};
+
+export const getProfileSrvc = async (id) => {
+  try {
+    const user = await findUserById(id);
+    if (!user) {
+      return new APIError(
+        "USER_NOT_FOUND",
+        HttpStatusCodes.NOT_FOUND,
+        true,
+        "ID does not match any user in the database",
+        ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
+      );
+    }
+    const personal = await findPersonalInfoById(id);
+    if (!personal) {
+      return new APIError(
+        "USER_NOT_FOUND",
+        HttpStatusCodes.NOT_FOUND,
+        true,
+        "ID does not match any personal info in the database",
+        ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
+      );
+    }
+    const organization = await findOrgInfoById(id);
+    if (!organization) {
+      return new APIError(
+        "USER_NOT_FOUND",
+        HttpStatusCodes.NOT_FOUND,
+        true,
+        "ID does not match any organizational info in the database",
+        ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
+      );
+    }
+
+    return {
+      email: user.email,
+      personalInformation: {
+        firstName: personal.firstName,
+        lastName: personal.lastName,
+        mobileNumber: personal.mobileNumber,
+      },
+      orgInformation: {
+        unit: organization.unit,
+        number: organization.number,
+        email: organization.email,
+        position: organization.position,
+      },
+    };
+  } catch (error) {
+    logger.trace("SRVC ERROR: Was not able to get user profile");
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in getting user profile"
     );
   }
 };
