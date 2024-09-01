@@ -100,6 +100,21 @@ export const findPersonalInfoById = async (id) => {
   }
 };
 
+export const updatePersonalInfoById = async (id, data) => {
+  try {
+    const result = await personalInfo.updateOne({ _id: id }, data);
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to update personal info");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating personal info"
+    );
+  }
+};
+
 export const createOrgInfo = async (id, unit, number, email, position) => {
   try {
     const result = await organizationInfo.insert({
@@ -132,6 +147,21 @@ export const findOrgInfoById = async (id) => {
       HttpStatusCodes.INTERNAL_SERVER,
       true,
       "Error in finding organizational info"
+    );
+  }
+};
+
+export const updateOrgInfoById = async (id, orgInfo) => {
+  try {
+    const result = await organizationInfo.updateOne({ _id: id }, orgInfo);
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to update org info");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating org info"
     );
   }
 };

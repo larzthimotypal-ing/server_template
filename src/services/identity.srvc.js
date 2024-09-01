@@ -17,6 +17,8 @@ import {
   findPersonalInfoById,
   findUserByEmail,
   findUserById,
+  updateOrgInfoById,
+  updatePersonalInfoById,
 } from "../data/repo/identity.repo.js";
 
 export const registerUserSrvc = async (
@@ -196,6 +198,37 @@ export const getProfileSrvc = async (id) => {
       HttpStatusCodes.INTERNAL_SERVER,
       true,
       "Error in getting user profile"
+    );
+  }
+};
+
+export const updateProfileSrvc = async (id, updateData) => {
+  const { personalInformation, orgInformation } = updateData;
+  try {
+    const user = await findUserById(id);
+    if (!user) {
+      return new APIError(
+        "USER_NOT_FOUND",
+        HttpStatusCodes.NOT_FOUND,
+        true,
+        "ID does not match any user in the database",
+        ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
+      );
+    }
+    if (personalInformation) {
+      await updatePersonalInfoById(id, personalInformation);
+    }
+    if (orgInformation) {
+      await updateOrgInfoById(id, orgInformation);
+    }
+    return { personalInformation, orgInformation };
+  } catch (error) {
+    logger.trace("SRVC ERROR: Was not able to update user profile");
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user profile"
     );
   }
 };

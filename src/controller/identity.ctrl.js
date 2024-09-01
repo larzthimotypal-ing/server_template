@@ -8,6 +8,7 @@ import {
   getProfileSrvc,
   loginUserSrvc,
   registerUserSrvc,
+  updateProfileSrvc,
 } from "../services/identity.srvc.js";
 import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
 
@@ -65,7 +66,6 @@ export const loginUserCtrl = async (req, res, next) => {
 export const getProfileCtrl = async (req, res, next) => {
   const user = req.user;
   try {
-    logger.info("PROFILE");
     if (!user) {
       return res.status(HttpStatusCodes.UNAUTHORIZED).json({
         success: false,
@@ -80,6 +80,32 @@ export const getProfileCtrl = async (req, res, next) => {
       success: true,
       message: "User Profile fetched successfully",
       code: ResponseCodes.PROF__FETCHED_SUCCESSFULLY,
+      result,
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to register a new user");
+    next(error);
+  }
+};
+
+export const updateProfileCtrl = async (req, res, next) => {
+  const user = req.user;
+  const { personalInformation, orgInformation } = req.body;
+  try {
+    const result = await updateProfileSrvc(user.id, {
+      personalInformation,
+      orgInformation,
+    });
+    if (!user) {
+      return res.status(HttpStatusCodes.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized Access to Resource",
+        code: ResponseCodes.AUTH__UNAUTHORIZED_ACCESS,
+      });
+    }
+    return res.status(HttpStatusCodes.OK).json({
+      success: true,
+      message: "Profile successfully updated.",
       result,
     });
   } catch (error) {
