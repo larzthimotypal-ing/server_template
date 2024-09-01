@@ -41,7 +41,7 @@ export const updateCourseProgressCtrl = async (req, res, next) => {
     return res.status(HttpStatusCodes.OK).json({
       success: true,
       message: "Course progress updated",
-      result: { module, lesson },
+      result,
     });
   } catch (error) {
     logger.trace("CTRL ERROR: Was not able to get lesson progress");

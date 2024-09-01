@@ -25,7 +25,6 @@ export const getLessonProgressSrvc = async (id) => {
     const lessonKeyArray = [result.module, result.lesson];
     const lessonKey = lessonKeyArray.join("-");
     if (lessonKey in QuizesLock) {
-      logger.info(QuizesLock[lessonKey]);
       return QuizesLock[lessonKey];
     }
 
@@ -50,7 +49,12 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
     } else {
       result = await updateLessonProgress(id, module, lesson);
     }
-    return result;
+    const lessonKeyArray = [module, lesson];
+    const lessonKey = lessonKeyArray.join("-");
+    if (lessonKey in QuizesLock) {
+      return QuizesLock[lessonKey];
+    }
+    return { module, lesson };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to update lesson progress");
     return new APIError(
