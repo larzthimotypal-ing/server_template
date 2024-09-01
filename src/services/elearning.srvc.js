@@ -14,6 +14,7 @@ import {
   insertLessonProgress,
   updateLessonProgress,
 } from "../data/repo/elearning.repo.js";
+import QuizesLock from "../global/constants/quizesLock.const.js";
 
 export const getLessonProgressSrvc = async (id) => {
   try {
@@ -21,6 +22,13 @@ export const getLessonProgressSrvc = async (id) => {
     if (!result) {
       return { module: 0, lesson: 0 };
     }
+    const lessonKeyArray = [result.module, result.lesson];
+    const lessonKey = lessonKeyArray.join("-");
+    if (lessonKey in QuizesLock) {
+      logger.info(QuizesLock[lessonKey]);
+      return QuizesLock[lessonKey];
+    }
+
     return result;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to get lesson progress");
@@ -42,7 +50,6 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
     } else {
       result = await updateLessonProgress(id, module, lesson);
     }
-
     return result;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to update lesson progress");
