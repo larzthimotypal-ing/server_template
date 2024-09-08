@@ -5,6 +5,7 @@ import { Router } from "express";
 import {
   getCourseProgressCtrl,
   updateCourseProgressCtrl,
+  getQuizCtrl,
 } from "../controller/elearning.ctrl.js";
 //Middlewares
 import { authGuard } from "./../global/middlewares/authGuard.mw.js";
@@ -16,5 +17,7 @@ router
   .route("/course-progress")
   .get(authGuard, getCourseProgressCtrl)
   .post(authGuard, updateCourseProgressCtrl);
+
+router.route("/quiz/:quizId").get(authGuard, getQuizCtrl);
 
 export default router;

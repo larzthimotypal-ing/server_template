@@ -8,6 +8,7 @@ import APIError from "../../global/utilities/error/apiError.js";
 import logger from "../../global/utilities/logger.js";
 const users = Datastore.create("Users.db");
 const progress = Datastore.create("Progress.db");
+const quizzes = Datastore.create("Quizzes.db");
 
 export const getLessonProgress = async (id) => {
   try {
@@ -46,6 +47,36 @@ export const insertLessonProgress = async (id, module, lesson) => {
       module,
       lesson,
     });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not insert lesson progress");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in inserting lesson progress"
+    );
+  }
+};
+
+export const createQuiz = async (quizId, questions) => {
+  try {
+    const result = await quizzes.insert({ _id: quizId, questions });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not insert lesson progress");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in inserting lesson progress"
+    );
+  }
+};
+
+export const getQuiz = async (quizId) => {
+  try {
+    const result = await quizzes.findOne({ _id: quizId });
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not insert lesson progress");
