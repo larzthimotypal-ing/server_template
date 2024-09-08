@@ -7,6 +7,7 @@ import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
 import {
   getLessonProgressSrvc,
   getQuizSrvc,
+  saveQuizResponseSrvc,
   updateLessonProgressSrvc,
 } from "../services/elearning.srvc.js";
 
@@ -69,6 +70,23 @@ export const getQuizCtrl = async (req, res, next) => {
   }
 };
 
+export const saveQuizResponseCtrl = async (req, res, next) => {
+  const user = req.user;
+  const { answers } = req.body;
+  const { quizId } = req.params;
+  try {
+    const result = await saveQuizResponseSrvc(user.id, quizId, answers);
+    if (errorHandler.isTrustedError(result)) return next(result);
+    return res.status(HttpStatusCodes.OK).json({
+      success: true,
+      message: "Quiz Result saved successfully",
+      result,
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to save quiz response");
+    next(error);
+  }
+};
 const requestPayload = {
   quizId: "tempid-qz1",
   questions: [

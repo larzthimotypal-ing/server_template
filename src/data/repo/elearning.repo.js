@@ -9,6 +9,7 @@ import logger from "../../global/utilities/logger.js";
 const users = Datastore.create("Users.db");
 const progress = Datastore.create("Progress.db");
 const quizzes = Datastore.create("Quizzes.db");
+const keyToCorrection = Datastore.create("KeyToCorrection.db");
 
 export const getLessonProgress = async (id) => {
   try {
@@ -79,12 +80,42 @@ export const getQuiz = async (quizId) => {
     const result = await quizzes.findOne({ _id: quizId });
     return result;
   } catch (error) {
-    logger.trace("REPO ERROR: Was not insert lesson progress");
+    logger.trace("REPO ERROR: Was not able to find quiz");
     return new APIError(
       "DATABASE_ACCESS",
       HttpStatusCodes.INTERNAL_SERVER,
       true,
       "Error in inserting lesson progress"
+    );
+  }
+};
+
+export const createKtc = async (quizId, ktc) => {
+  try {
+    const result = await keyToCorrection.insert({ _id: quizId, ktc });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to create a key to correction");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in creating key to correction"
+    );
+  }
+};
+
+export const getKtc = async (quizId) => {
+  try {
+    const result = await keyToCorrection.findOne({ _id: quizId });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to find key to correction");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in getting key to correction"
     );
   }
 };
