@@ -61,9 +61,9 @@ export const insertLessonProgress = async (id, module, lesson) => {
   }
 };
 
-export const createQuiz = async (quizId, questions) => {
+export const createQuiz = async (quizId, questions, totalItems) => {
   try {
-    const result = await quizzes.insert({ _id: quizId, questions });
+    const result = await quizzes.insert({ _id: quizId, questions, totalItems });
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not insert lesson progress");

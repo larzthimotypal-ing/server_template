@@ -6,5 +6,8 @@ export const m1ktc = {
     { id: "m1q_q003", answers: ["m1q_c002"] },
     { id: "m1q_q004", answers: ["m1q_c004"] },
     { id: "m1q_q005", answers: ["m1q_c001"] },
+    { id: "m1q_q006", answers: ["m1q_c004"] },
+    { id: "m1q_q007", answers: ["m1q_c002"] },
+    { id: "m1q_q008", answers: ["m1q_c001"] },
   ],
 };

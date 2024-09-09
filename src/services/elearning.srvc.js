@@ -83,9 +83,9 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
 };
 
 export const createQuizService = async (options) => {
-  const { quizId, questions } = options;
+  const { quizId, questions, totalItems } = options;
   try {
-    const quiz = await createQuiz(quizId, questions);
+    const quiz = await createQuiz(quizId, questions, totalItems);
     logger.info("Quiz Created Successfully");
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to create quizzes");
@@ -95,6 +95,7 @@ export const createQuizService = async (options) => {
 export const getQuizSrvc = async (quizId) => {
   try {
     const quiz = await getQuiz(quizId);
+    logger.fatal(quiz);
     if (!quiz) {
       return new APIError(
         "SERVICE",
@@ -103,7 +104,26 @@ export const getQuizSrvc = async (quizId) => {
         "Quiz does not exist"
       );
     }
-    return quiz;
+    function getRandomItemsFromArray(arr, num) {
+      let count = num;
+      if (num > arr.length) {
+        count = arr.length;
+      }
+      const result = [];
+      const tempArr = [...arr];
+
+      while (result.length < count) {
+        const randomIndex = Math.floor(Math.random() * tempArr.length);
+        result.push(tempArr[randomIndex]);
+        tempArr.splice(randomIndex, 1);
+      }
+      return result;
+    }
+    const randomizedItems = getRandomItemsFromArray(
+      quiz.questions,
+      quiz.totalItems
+    );
+    return { quizId: quiz._id, questions: randomizedItems };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to get lesson progress");
     return new APIError(

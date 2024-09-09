@@ -1,5 +1,6 @@
 export const m1q = {
   quizId: "dd_m1q",
+  totalItems: 5,
   questions: [
     {
       id: "m1q_q001",
@@ -120,6 +121,70 @@ export const m1q = {
         {
           choiceId: "m1q_c005",
           value: "Report what happens next",
+        },
+      ],
+    },
+    {
+      id: "m1q_q006",
+      type: "radio",
+      questionaire:
+        "Which among the following LGUs used digital tools to consult with their citizens since 2020?",
+      choices: [
+        {
+          choiceId: "m1q_c001",
+          value: "Himamaylan",
+        },
+        {
+          choiceId: "m1q_c002",
+          value: "Victorias",
+        },
+        {
+          choiceId: "m1q_c003",
+          value: "Iligan",
+        },
+        {
+          choiceId: "m1q_c004",
+          value: "All of the above",
+        },
+      ],
+    },
+    {
+      id: "m1q_q007",
+      type: "radio",
+      questionaire:
+        "What module ensures that you will learn how to gather and analyze feedback to inform policy changes and ensure ongoing community engagement?",
+      choices: [
+        {
+          choiceId: "m1q_c001",
+          value: "Clarify Goals",
+        },
+        {
+          choiceId: "m1q_c002",
+          value: "Adapt Strategies",
+        },
+        {
+          choiceId: "m1q_c003",
+          value: "Engage Stakeholders",
+        },
+        {
+          choiceId: "m1q_c004",
+          value: "Renew and Review",
+        },
+      ],
+    },
+    {
+      id: "m1q_q008",
+      type: "radio",
+      questionaire:
+        "This process brings together a variety of stakeholders, including local government units, civil society organizations, businesses, academia, media, and individuals.",
+      choices: [
+        {
+          choiceId: "m1q_c001",
+          value: "TRUE",
+        },
+        {
+          choiceId: "m1q_c002",
+          value: "FALSE",
         },
       ],
     },

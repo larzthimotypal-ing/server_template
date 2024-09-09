@@ -60,7 +60,7 @@ export const getQuizCtrl = async (req, res, next) => {
       success: true,
       message: "Quiz fetched successfully",
       result: {
-        quizId: result._id,
+        quizId: result.quizId,
         questions: result.questions,
       },
     });
