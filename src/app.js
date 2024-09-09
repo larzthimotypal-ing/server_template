@@ -13,6 +13,8 @@ import apiLoggerMW from "./global/middlewares/apiLogger.mw.js";
 //Routes
 import identity from "./routes/identity.rts.js";
 import elearning from "./routes/elearning.rts.js";
+import { ktcScript } from "./scripts/createKtcScript.js";
+import { createQuizScript } from "./scripts/createQuizScript.js";
 //<--DEPENDENCIES-->//
 
 const app = express();
@@ -37,6 +39,9 @@ app.use("/api/elearning", elearning);
 
 //Error Middleware
 app.use(errorMW);
+
+await createQuizScript();
+await ktcScript();
 
 app.listen(PORT, () => {
   logger.info(

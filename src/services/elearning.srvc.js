@@ -95,7 +95,6 @@ export const createQuizService = async (options) => {
 export const getQuizSrvc = async (quizId) => {
   try {
     const quiz = await getQuiz(quizId);
-    logger.fatal(quiz);
     if (!quiz) {
       return new APIError(
         "SERVICE",
