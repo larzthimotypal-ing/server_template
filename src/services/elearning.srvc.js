@@ -15,10 +15,14 @@ import {
   getKtc,
   getLessonProgress,
   getQuiz,
+  getQuizResponse,
   insertLessonProgress,
+  saveQuizResponse,
   updateLessonProgress,
+  updateQuizResponse,
 } from "../data/repo/elearning.repo.js";
 import QuizesLock from "../global/constants/quizesLock.const.js";
+import QuizzesId from "../global/constants/quizzesId.const.js";
 
 export const getLessonProgressSrvc = async (id) => {
   try {
@@ -29,6 +33,14 @@ export const getLessonProgressSrvc = async (id) => {
     const lessonKeyArray = [result.module, result.lesson];
     const lessonKey = lessonKeyArray.join("-");
     if (lessonKey in QuizesLock) {
+      const quizId = QuizzesId[lessonKey];
+      const quizResponse = await getQuizResponse(quizId, id);
+      logger.fatal(quizResponse);
+      if (quizResponse) {
+        if (quizResponse.quizResult.passed) {
+          return result;
+        }
+      }
       return QuizesLock[lessonKey];
     }
 
@@ -174,14 +186,22 @@ export const saveQuizResponseSrvc = async (userId, quizId, answers) => {
       }
     });
     const grade = correct.length / (correct.length + incorrect.length);
-    const passed = grade > 0.8;
+    const passed = grade >= 0.8;
 
-    return {
+    const quizResult = {
       correctAnswers: correct,
       incorrectAnswers: incorrect,
       grade,
       passed,
     };
+    let quizResponse;
+    const currentQuizResponse = await getQuizResponse(quizId, userId);
+    if (!currentQuizResponse) {
+      quizResponse = await saveQuizResponse(quizId, userId, quizResult);
+    } else {
+      quizResponse = await updateQuizResponse(quizId, userId, quizResult);
+    }
+    return quizResult;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to get key to correction");
     return new APIError(

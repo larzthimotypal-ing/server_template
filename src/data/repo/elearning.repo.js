@@ -10,6 +10,7 @@ const users = Datastore.create("Users.db");
 const progress = Datastore.create("Progress.db");
 const quizzes = Datastore.create("Quizzes.db");
 const keyToCorrection = Datastore.create("KeyToCorrection.db");
+const quizResponse = Datastore.create("QuizResponse.db");
 
 export const getLessonProgress = async (id) => {
   try {
@@ -116,6 +117,58 @@ export const getKtc = async (quizId) => {
       HttpStatusCodes.INTERNAL_SERVER,
       true,
       "Error in getting key to correction"
+    );
+  }
+};
+
+export const saveQuizResponse = async (quizId, userId, quizResult) => {
+  try {
+    const result = await quizResponse.insert({
+      userId,
+      quizId,
+      quizResult,
+    });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to save quiz response");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in saving quiz response"
+    );
+  }
+};
+
+export const updateQuizResponse = async (quizId, userId, quizResult) => {
+  try {
+    const result = await quizResponse.update(
+      { userId, quizId },
+      { userId, quizId, quizResult }
+    );
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to update quiz response");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating quiz response"
+    );
+  }
+};
+
+export const getQuizResponse = async (quizId, userId) => {
+  try {
+    const result = await quizResponse.findOne({ userId, quizId });
+    return result;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to get quiz response");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in getting quiz response"
     );
   }
 };
