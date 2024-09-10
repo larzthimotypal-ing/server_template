@@ -24,11 +24,11 @@ import {
 import QuizesLock from "../global/constants/quizesLock.const.js";
 import QuizzesId from "../global/constants/quizzesId.const.js";
 
-export const getLessonProgressSrvc = async (id) => {
+export const getLessonProgressSrvc = async id => {
   try {
     const result = await getLessonProgress(id);
     if (!result) {
-      return { module: 0, lesson: 0 };
+      return { module: 0, lesson: -1 };
     }
     const lessonKeyArray = [result.module, result.lesson];
     const lessonKey = lessonKeyArray.join("-");
@@ -82,7 +82,7 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
   }
 };
 
-export const createQuizService = async (options) => {
+export const createQuizService = async options => {
   const { quizId, questions, totalItems } = options;
   try {
     const quiz = await createQuiz(quizId, questions, totalItems);
@@ -92,7 +92,7 @@ export const createQuizService = async (options) => {
   }
 };
 
-export const getQuizSrvc = async (quizId) => {
+export const getQuizSrvc = async quizId => {
   try {
     const quiz = await getQuiz(quizId);
     if (!quiz) {
@@ -179,8 +179,8 @@ export const saveQuizResponseSrvc = async (userId, quizId, answers) => {
     };
     let correct = [];
     let incorrect = [];
-    answers.forEach((a) => {
-      const ktcItem = ktc.find((k) => k.id === a.id);
+    answers.forEach(a => {
+      const ktcItem = ktc.find(k => k.id === a.id);
       if (ktcItem) {
         const answersMatch = arraysMatch(a.answers, ktcItem.answers);
         if (answersMatch) {
