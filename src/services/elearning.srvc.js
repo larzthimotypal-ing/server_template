@@ -44,6 +44,7 @@ export const getLessonProgressSrvc = async (id) => {
       if (lessonKey in nonGradedQuizzes) {
         const quizId = QuizzesId[lessonKey];
         const quizResponse = await getQuizResponse(quizId, id);
+        logger.fatal(quizResponse);
         if (!quizResponse) {
           return nonGradedQuizzes[lessonKey];
         }

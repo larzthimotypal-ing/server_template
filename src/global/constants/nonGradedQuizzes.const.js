@@ -1,7 +1,7 @@
 const nonGradedQuizzes = {
-  "0-1": {
+  "0-0": {
     module: 0,
-    lesson: 0,
+    lesson: -1,
   },
   "5-5": {
     module: 5,
@@ -9,7 +9,7 @@ const nonGradedQuizzes = {
   },
   "5-6": {
     module: 5,
-    lesson: 6,
+    lesson: 5,
   },
 };
 
