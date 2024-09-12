@@ -23,8 +23,9 @@ import {
 } from "../data/repo/elearning.repo.js";
 import QuizesLock from "../global/constants/quizesLock.const.js";
 import QuizzesId from "../global/constants/quizzesId.const.js";
+import nonGradedQuizzes from "../global/constants/nonGradedQuizzes.const.js";
 
-export const getLessonProgressSrvc = async id => {
+export const getLessonProgressSrvc = async (id) => {
   try {
     const result = await getLessonProgress(id);
     if (!result) {
@@ -35,15 +36,20 @@ export const getLessonProgressSrvc = async id => {
     if (lessonKey in QuizesLock) {
       const quizId = QuizzesId[lessonKey];
       const quizResponse = await getQuizResponse(quizId, id);
-      logger.fatal(quizResponse);
       if (quizResponse) {
         if (quizResponse.quizResult.passed) {
           return result;
         }
       }
+      if (lessonKey in nonGradedQuizzes) {
+        const quizId = QuizzesId[lessonKey];
+        const quizResponse = await getQuizResponse(quizId, id);
+        if (!quizResponse) {
+          return nonGradedQuizzes[lessonKey];
+        }
+      }
       return QuizesLock[lessonKey];
     }
-
     return result;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to get lesson progress");
@@ -60,17 +66,38 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
   try {
     const progress = await getLessonProgress(id);
     let result;
+    const validateProgressInput = (current, incoming) => {
+      const currentValue = current.module * 10 + current.lesson;
+      const incomingValue = incoming.module * 10 + incoming.lesson;
+      return incomingValue > currentValue;
+    };
     if (!progress) {
       result = await insertLessonProgress(id, module, lesson);
     } else {
-      result = await updateLessonProgress(id, module, lesson);
+      const validProgress = validateProgressInput(
+        { module: progress.module, lesson: progress.lesson },
+        { module, lesson }
+      );
+      if (validProgress) {
+        await updateLessonProgress(id, module, lesson);
+        result = { module, lesson };
+      } else {
+        result = { module: progress.module, lesson: progress.lesson };
+      }
     }
     const lessonKeyArray = [module, lesson];
     const lessonKey = lessonKeyArray.join("-");
     if (lessonKey in QuizesLock) {
       return QuizesLock[lessonKey];
     }
-    return { module, lesson };
+    if (lessonKey in nonGradedQuizzes) {
+      const quizId = QuizzesId[lessonKey];
+      const quizResponse = await getQuizResponse(quizId, id);
+      if (!quizResponse) {
+        return nonGradedQuizzes[lessonKey];
+      }
+    }
+    return result;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to update lesson progress");
     return new APIError(
@@ -82,7 +109,7 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
   }
 };
 
-export const createQuizService = async options => {
+export const createQuizService = async (options) => {
   const { quizId, questions, totalItems } = options;
   try {
     const quiz = await createQuiz(quizId, questions, totalItems);
@@ -92,7 +119,7 @@ export const createQuizService = async options => {
   }
 };
 
-export const getQuizSrvc = async quizId => {
+export const getQuizSrvc = async (quizId) => {
   try {
     const quiz = await getQuiz(quizId);
     if (!quiz) {
@@ -179,8 +206,8 @@ export const saveQuizResponseSrvc = async (userId, quizId, answers) => {
     };
     let correct = [];
     let incorrect = [];
-    answers.forEach(a => {
-      const ktcItem = ktc.find(k => k.id === a.id);
+    answers.forEach((a) => {
+      const ktcItem = ktc.find((k) => k.id === a.id);
       if (ktcItem) {
         const answersMatch = arraysMatch(a.answers, ktcItem.answers);
         if (answersMatch) {
