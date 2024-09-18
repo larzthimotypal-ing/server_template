@@ -1,5 +1,5 @@
-import { createKtcSrvc } from "../services/elearning.srvc.js";
-import {
+const { createKtcSrvc } = require("../services/elearning.srvc.js");
+const {
   m1ktc,
   m2ktc,
   m3ktc,
@@ -8,11 +8,11 @@ import {
   m6ktc,
   pretestktc,
   posttestktc,
-} from "../global/constants/ktcData.const.js";
-import logger from "../global/utilities/logger.js";
+} = require("../global/constants/ktcData.const.js");
+const logger = require("../global/utilities/logger.js");
 
 // node src/scripts/createKtcScript.js
-export const ktcScript = async () => {
+const ktcScript = async () => {
   try {
     await createKtcSrvc(m1ktc.quizId, m1ktc.ktc);
     await createKtcSrvc(m2ktc.quizId, m2ktc.ktc);
@@ -26,3 +26,5 @@ export const ktcScript = async () => {
     logger.error("KTC Script was not run successfully");
   }
 };
+
+module.exports = { ktcScript };

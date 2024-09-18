@@ -1,8 +1,8 @@
-import pino from "pino";
+const pino = require("pino");
 
-import * as url from "url";
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const url = require("url");
+// const __filename = url.fileURLToPath(import.meta.url);
+// const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 // comment pino/file
 const transport = pino.transport({
@@ -29,4 +29,4 @@ const logger = pino(
   transport
 );
 
-export default logger;
+module.exports = logger;

@@ -1,13 +1,13 @@
 //Libraries
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 //Constants
-import HttpStatusCodes from "../constants/httpStatusCodes.const.js";
-import ResponseCodes from "../constants/responseCodes.const.js";
+const HttpStatusCodes = require("../constants/httpStatusCodes.const.js");
+const ResponseCodes = require("../constants/responseCodes.const.js");
 //Utilities
-import APIError from "../utilities/error/apiError.js";
-import logger from "../utilities/logger.js";
+const APIError = require("../utilities/error/apiError.js");
+const logger = require("../utilities/logger.js");
 
-export const authGuard = async (req, res, next) => {
+const authGuard = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const accessToken = authHeader && authHeader.split(" ")[1];
@@ -44,3 +44,5 @@ export const authGuard = async (req, res, next) => {
     );
   }
 };
+
+module.exports = { authGuard };

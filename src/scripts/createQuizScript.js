@@ -1,5 +1,5 @@
-import { createQuizService } from "../services/elearning.srvc.js";
-import {
+const { createQuizService } = require("../services/elearning.srvc.js");
+const {
   m1q,
   m2q,
   m3q,
@@ -8,12 +8,12 @@ import {
   m6q,
   pretest,
   posttest,
-} from "../global/constants/quizzesData.const.js";
-import logger from "../global/utilities/logger.js";
+} = require("../global/constants/quizzesData.const.js");
+const logger = require("../global/utilities/logger.js");
 
 // node src/scripts/createQuizScript.js
 
-export const createQuizScript = async () => {
+const createQuizScript = async () => {
   try {
     await createQuizService(m1q);
     await createQuizService(m2q);
@@ -27,3 +27,5 @@ export const createQuizScript = async () => {
     logger.error("Create Quiz Script was not run successfully");
   }
 };
+
+module.exports = { createQuizScript };

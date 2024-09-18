@@ -1,15 +1,15 @@
 //Libraries
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { uuid } from "uuidv4";
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { uuid } = require("uuidv4");
 //Constants
-import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
-import APIError from "../global/utilities/error/apiError.js";
-import ResponseCodes from "../global/constants/responseCodes.const.js";
+const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
+const APIError = require("../global/utilities/error/apiError.js");
+const ResponseCodes = require("../global/constants/responseCodes.const.js");
 //Utilities
-import logger from "../global/utilities/logger.js";
+const logger = require("../global/utilities/logger.js");
 //Repo
-import {
+const {
   createOrgInfo,
   createPersonalInfo,
   createUser,
@@ -19,16 +19,11 @@ import {
   findUserById,
   updateOrgInfoById,
   updatePersonalInfoById,
-} from "../data/repo/identity.repo.js";
+} = require("../data/repo/identity.repo.js");
 
-export const registerUserSrvc = async (
-  email,
-  password,
-  personalInfo,
-  orgInfo
-) => {
+const registerUserSrvc = async (email, password, personalInfo, orgInfo) => {
   const { firstName, lastName, mobileNumber } = personalInfo;
-  const { orgUnit, orgNumber, orgEmail, position } = orgInfo;
+  const { orgUnit, orgEmail, position } = orgInfo;
   try {
     //Check if user already exists
     const id = uuid();
@@ -47,19 +42,14 @@ export const registerUserSrvc = async (
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await createUser(id, email, hashedPassword);
+
     const personal = await createPersonalInfo(
       id,
       firstName,
       lastName,
       mobileNumber
     );
-    const organization = await createOrgInfo(
-      id,
-      orgUnit,
-      orgNumber,
-      orgEmail,
-      position
-    );
+    const organization = await createOrgInfo(id, orgUnit, orgEmail, position);
 
     return {
       email: user.email,
@@ -86,7 +76,7 @@ export const registerUserSrvc = async (
   }
 };
 
-export const loginUserSrvc = async (email, password) => {
+const loginUserSrvc = async (email, password) => {
   try {
     const user = await findUserByEmail(email);
     if (!user) {
@@ -110,13 +100,13 @@ export const loginUserSrvc = async (email, password) => {
       );
     }
     const secret = process.env.ACCESS_TOKEN_SECRET;
-    const id = user._id;
-    const accessToken = jwt.sign({ userId: id }, secret, {
+    const { userId } = user;
+    const accessToken = jwt.sign({ userId }, secret, {
       subject: "accessApi",
       expiresIn: "30d",
     });
-    const personal = await findPersonalInfoById(id);
-    const organization = await findOrgInfoById(id);
+    const personal = await findPersonalInfoById(userId);
+    const organization = await findOrgInfoById(userId);
 
     return {
       email: user.email,
@@ -128,7 +118,6 @@ export const loginUserSrvc = async (email, password) => {
       },
       orgInformation: {
         unit: organization.unit,
-        number: organization.number,
         email: organization.email,
         position: organization.position,
       },
@@ -144,9 +133,9 @@ export const loginUserSrvc = async (email, password) => {
   }
 };
 
-export const getProfileSrvc = async (id) => {
+const getProfileSrvc = async (userId) => {
   try {
-    const user = await findUserById(id);
+    const user = await findUserById(userId);
     if (!user) {
       return new APIError(
         "USER_NOT_FOUND",
@@ -156,7 +145,7 @@ export const getProfileSrvc = async (id) => {
         ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
       );
     }
-    const personal = await findPersonalInfoById(id);
+    const personal = await findPersonalInfoById(userId);
     if (!personal) {
       return new APIError(
         "USER_NOT_FOUND",
@@ -166,7 +155,7 @@ export const getProfileSrvc = async (id) => {
         ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
       );
     }
-    const organization = await findOrgInfoById(id);
+    const organization = await findOrgInfoById(userId);
     if (!organization) {
       return new APIError(
         "USER_NOT_FOUND",
@@ -202,7 +191,7 @@ export const getProfileSrvc = async (id) => {
   }
 };
 
-export const updateProfileSrvc = async (id, updateData) => {
+const updateProfileSrvc = async (id, updateData) => {
   const { personalInformation, orgInformation } = updateData;
   try {
     const user = await findUserById(id);
@@ -215,13 +204,29 @@ export const updateProfileSrvc = async (id, updateData) => {
         ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
       );
     }
+    let newPersonalInformation = personalInformation;
+    let newOrgInformation = orgInformation;
     if (personalInformation) {
-      await updatePersonalInfoById(id, personalInformation);
+      newPersonalInformation = await updatePersonalInfoById(
+        id,
+        personalInformation
+      );
     }
     if (orgInformation) {
-      await updateOrgInfoById(id, orgInformation);
+      newOrgInformation = await updateOrgInfoById(id, orgInformation);
     }
-    return { personalInformation, orgInformation };
+    return {
+      personalInformation: {
+        firstName: newPersonalInformation.firstName,
+        lastName: newPersonalInformation.lastName,
+        mobileNumber: newPersonalInformation.mobileNumber,
+      },
+      orgInformation: {
+        unit: newOrgInformation.unit,
+        email: newOrgInformation.email,
+        position: newOrgInformation.position,
+      },
+    };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to update user profile");
     return new APIError(
@@ -231,4 +236,11 @@ export const updateProfileSrvc = async (id, updateData) => {
       "Error in updating user profile"
     );
   }
+};
+
+module.exports = {
+  registerUserSrvc,
+  loginUserSrvc,
+  getProfileSrvc,
+  updateProfileSrvc,
 };

@@ -25,4 +25,4 @@ const QuizesLock = {
   },
 };
 
-export default QuizesLock;
+module.exports = QuizesLock;

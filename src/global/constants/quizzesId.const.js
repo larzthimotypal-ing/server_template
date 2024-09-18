@@ -10,4 +10,4 @@ const QuizzesId = {
   "5-6": "dd_postsurvey",
 };
 
-export default QuizzesId;
+module.exports = QuizzesId;

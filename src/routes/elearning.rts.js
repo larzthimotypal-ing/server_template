@@ -1,15 +1,15 @@
 //<--DEPENDENCIES-->//
 //Libraries
-import { Router } from "express";
+const { Router } = require("express");
 //Controllers
-import {
+const {
   getCourseProgressCtrl,
   updateCourseProgressCtrl,
   getQuizCtrl,
   saveQuizResponseCtrl,
-} from "../controller/elearning.ctrl.js";
+} = require("../controller/elearning.ctrl.js");
 //Middlewares
-import { authGuard } from "./../global/middlewares/authGuard.mw.js";
+const { authGuard } = require("./../global/middlewares/authGuard.mw.js");
 //<--DEPENDENCIES-->//
 
 const router = Router();
@@ -24,4 +24,4 @@ router
   .get(authGuard, getQuizCtrl)
   .post(authGuard, saveQuizResponseCtrl);
 
-export default router;
+module.exports = router;

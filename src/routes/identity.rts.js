@@ -1,15 +1,15 @@
 //<--DEPENDENCIES-->//
 //Libraries
-import { Router } from "express";
+const { Router } = require("express");
 //Controllers
-import {
+const {
   getProfileCtrl,
   loginUserCtrl,
   registerUserCtrl,
   updateProfileCtrl,
-} from "../controller/identity.ctrl.js";
+} = require("../controller/identity.ctrl.js");
 //Middlewares
-import { authGuard } from "../global/middlewares/authGuard.mw.js";
+const { authGuard } = require("../global/middlewares/authGuard.mw.js");
 //<--DEPENDENCIES-->//
 
 const router = Router();
@@ -21,4 +21,4 @@ router
   .get(authGuard, getProfileCtrl)
   .patch(authGuard, updateProfileCtrl);
 
-export default router;
+module.exports = router;

@@ -1,4 +1,4 @@
-export const m1q = {
+const m1q = {
   quizId: "dd_m1q",
   totalItems: 5,
   questions: [
@@ -191,7 +191,7 @@ export const m1q = {
   ],
 };
 
-export const m2q = {
+const m2q = {
   quizId: "dd_m2q",
   totalItems: 5,
   questions: [
@@ -372,7 +372,7 @@ export const m2q = {
   ],
 };
 
-export const m3q = {
+const m3q = {
   quizId: "dd_m3q",
   totalItems: 5,
   questions: [
@@ -557,7 +557,7 @@ export const m3q = {
   ],
 };
 
-export const m4q = {
+const m4q = {
   quizId: "dd_m4q",
   totalItems: 5,
   questions: [
@@ -755,7 +755,7 @@ export const m4q = {
   ],
 };
 
-export const m5q = {
+const m5q = {
   quizId: "dd_m5q",
   totalItems: 5,
   questions: [
@@ -951,7 +951,7 @@ export const m5q = {
   ],
 };
 
-export const m6q = {
+const m6q = {
   quizId: "dd_m6q",
   totalItems: 5,
   questions: [
@@ -1142,7 +1142,7 @@ export const m6q = {
   ],
 };
 
-export const pretest = {
+const pretest = {
   quizId: "dd_pretest",
   totalItems: 10,
   questions: [
@@ -1473,7 +1473,7 @@ export const pretest = {
   ],
 };
 
-export const posttest = {
+const posttest = {
   quizId: "dd_posttest",
   totalItems: 10,
   questions: [
@@ -1802,4 +1802,362 @@ export const posttest = {
       ],
     },
   ],
+};
+
+const postSurvey = {
+  quizId: "dd_postsurvey",
+  totalItems: 14,
+  questions: [
+    {
+      id: "postsurvey_q001",
+      type: "radio",
+      questionaire: "The course content was relevant to my needs.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q002",
+      type: "radio",
+      questionaire:
+        "The learning objectives were clearly defined and achieved.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q003",
+      type: "radio",
+      questionaire: "The course material is aligned with my expectations.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q004",
+      type: "radio",
+      questionaire: "The presenter was engaging.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q005",
+      type: "radio",
+      questionaire: "The pace of the course was appropriate.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q006",
+      type: "radio",
+      questionaire: "The teaching method was effective.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q007",
+      type: "radio",
+      questionaire:
+        "The provided resources (e.g.,videos, case studies, templates) were useful.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q008",
+      type: "radio",
+      questionaire:
+        "The provided resources (e.g.,videos, case studies, templates) were clear and helpful.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q009",
+      type: "radio",
+      questionaire:
+        "The course platform was user-friendly and easy to navigate.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q010",
+      type: "radio",
+      questionaire: "I am confident about applying what Ive learned.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q011",
+      type: "radio",
+      questionaire: "I am likely to recommend this course to a colleague.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q012",
+      type: "radio",
+      questionaire: "I am satisfied overall withh the course.",
+      choices: [
+        {
+          choiceId: "postsurvey_c001",
+          value: "Strongly Disagree",
+        },
+        {
+          choiceId: "postsurvey_c002",
+          value: "Disagree",
+        },
+        {
+          choiceId: "postsurvey_c003",
+          value: "Neutral",
+        },
+        {
+          choiceId: "postsurvey_c004",
+          value: "Agree",
+        },
+        {
+          choiceId: "postsurvey_c005",
+          value: "Strongly Agree",
+        },
+      ],
+    },
+    {
+      id: "postsurvey_q013",
+      type: "text",
+      questionaire: "What suggestions do you have for improving this course?",
+    },
+    {
+      id: "postsurvey_q014",
+      type: "radio",
+      questionaire:
+        "Is there any additional feedback you would like to provide?",
+    },
+  ],
+};
+
+module.exports = {
+  m1q,
+  m2q,
+  m3q,
+  m4q,
+  m5q,
+  m6q,
+  pretest,
+  posttest,
+  postSurvey,
 };

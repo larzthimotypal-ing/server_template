@@ -41,4 +41,4 @@ const HttpStatusCodes = {
   HTTP_VERSION_NOT_SUPPORTED: 505,
 };
 
-export default HttpStatusCodes;
+module.exports = HttpStatusCodes;

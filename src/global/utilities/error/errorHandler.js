@@ -1,5 +1,5 @@
-import APIError from "./apiError.js";
-import BaseError from "./baseError.js";
+const APIError = require("./apiError.js");
+const BaseError = require("./baseError.js");
 
 class ErrorHandler {
   async handleError(error) {
@@ -20,4 +20,4 @@ class ErrorHandler {
 
 const errorHandler = new ErrorHandler();
 
-export default errorHandler;
+module.exports = errorHandler;

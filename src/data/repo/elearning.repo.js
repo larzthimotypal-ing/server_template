@@ -1,20 +1,22 @@
 //Libraries
-import mysql from "mysql2";
-import Datastore from "nedb-promises";
+const Datastore = require("nedb-promises");
 //Constants
-import HttpStatusCodes from "../../global/constants/httpStatusCodes.const.js";
-import APIError from "../../global/utilities/error/apiError.js";
+const HttpStatusCodes = require("../../global/constants/httpStatusCodes.const.js");
+const APIError = require("../../global/utilities/error/apiError.js");
 //Utilities
-import logger from "../../global/utilities/logger.js";
+const logger = require("../../global/utilities/logger.js");
 const users = Datastore.create("Users.db");
 const progress = Datastore.create("Progress.db");
 const quizzes = Datastore.create("Quizzes.db");
 const keyToCorrection = Datastore.create("KeyToCorrection.db");
 const quizResponse = Datastore.create("QuizResponse.db");
+//MongoDb Models
+const Progress = require("../models/Progress.model.js");
+const QuizResponse = require("../models/QuizResponse.model.js");
 
-export const getLessonProgress = async (id) => {
+const getLessonProgress = async (userId) => {
   try {
-    const result = await progress.findOne({ _id: id });
+    const result = await Progress.findOne({ userId }).lean();
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to get lesson progress");
@@ -27,10 +29,15 @@ export const getLessonProgress = async (id) => {
   }
 };
 
-export const updateLessonProgress = async (id, module, lesson) => {
+const updateLessonProgress = async (userId, module, lesson) => {
   try {
-    const result = await progress.updateOne({ _id: id }, { module, lesson });
-    return result;
+    const progress = await Progress.findOneAndUpdate(
+      { userId },
+      { $set: { module, lesson } },
+      { new: true }
+    ).lean();
+
+    return progress;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to update lesson progress");
     return new APIError(
@@ -42,14 +49,12 @@ export const updateLessonProgress = async (id, module, lesson) => {
   }
 };
 
-export const insertLessonProgress = async (id, module, lesson) => {
+const insertLessonProgress = async (userId, module, lesson) => {
   try {
-    const result = await progress.insert({
-      _id: id,
-      module,
-      lesson,
-    });
-    return result;
+    const newProgress = new Progress({ userId, module, lesson });
+    await newProgress.save();
+
+    return newProgress;
   } catch (error) {
     logger.trace("REPO ERROR: Was not insert lesson progress");
     return new APIError(
@@ -61,7 +66,7 @@ export const insertLessonProgress = async (id, module, lesson) => {
   }
 };
 
-export const createQuiz = async (quizId, questions, totalItems) => {
+const createQuiz = async (quizId, questions, totalItems) => {
   try {
     const result = await quizzes.insert({ _id: quizId, questions, totalItems });
     return result;
@@ -76,7 +81,7 @@ export const createQuiz = async (quizId, questions, totalItems) => {
   }
 };
 
-export const getQuiz = async (quizId) => {
+const getQuiz = async (quizId) => {
   try {
     const result = await quizzes.findOne({ _id: quizId });
     return result;
@@ -91,7 +96,7 @@ export const getQuiz = async (quizId) => {
   }
 };
 
-export const createKtc = async (quizId, ktc) => {
+const createKtc = async (quizId, ktc) => {
   try {
     const result = await keyToCorrection.insert({ _id: quizId, ktc });
     return result;
@@ -106,7 +111,7 @@ export const createKtc = async (quizId, ktc) => {
   }
 };
 
-export const getKtc = async (quizId) => {
+const getKtc = async (quizId) => {
   try {
     const result = await keyToCorrection.findOne({ _id: quizId });
     return result;
@@ -121,14 +126,15 @@ export const getKtc = async (quizId) => {
   }
 };
 
-export const saveQuizResponse = async (quizId, userId, quizResult) => {
+const saveQuizResponse = async (quizId, userId, quizResult) => {
   try {
-    const result = await quizResponse.insert({
-      userId,
+    const newQuizResponse = new QuizResponse({
       quizId,
+      userId,
       quizResult,
     });
-    return result;
+    await newQuizResponse.save();
+    return newQuizResponse;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to save quiz response");
     return new APIError(
@@ -140,12 +146,13 @@ export const saveQuizResponse = async (quizId, userId, quizResult) => {
   }
 };
 
-export const updateQuizResponse = async (quizId, userId, quizResult) => {
+const updateQuizResponse = async (quizId, userId, quizResult) => {
   try {
-    const result = await quizResponse.update(
+    const result = await QuizResponse.findOneAndUpdate(
       { userId, quizId },
-      { userId, quizId, quizResult }
-    );
+      { $set: { userId, quizId, quizResult } },
+      { new: true }
+    ).lean();
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to update quiz response");
@@ -158,9 +165,9 @@ export const updateQuizResponse = async (quizId, userId, quizResult) => {
   }
 };
 
-export const getQuizResponse = async (quizId, userId) => {
+const getQuizResponse = async (quizId, userId) => {
   try {
-    const result = await quizResponse.findOne({ userId, quizId });
+    const result = await QuizResponse.findOne({ userId, quizId }).lean();
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to get quiz response");
@@ -171,4 +178,17 @@ export const getQuizResponse = async (quizId, userId) => {
       "Error in getting quiz response"
     );
   }
+};
+
+module.exports = {
+  getLessonProgress,
+  updateLessonProgress,
+  insertLessonProgress,
+  createQuiz,
+  getQuiz,
+  createKtc,
+  getKtc,
+  saveQuizResponse,
+  updateQuizResponse,
+  getQuizResponse,
 };

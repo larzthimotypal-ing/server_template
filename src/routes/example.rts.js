@@ -1,6 +1,6 @@
 //<--DEPENDENCIES-->//
 //Libraries
-import { Router } from "express";
+const { Router } = require("express");
 //Controllers
 
 //<--DEPENDENCIES-->//
@@ -9,4 +9,4 @@ const router = Router();
 
 router.route("/").post();
 
-export default router;
+module.exports = router;

@@ -1,20 +1,22 @@
 //<--DEPENDENCIES-->//
 //Libraries
-import dotenv from "dotenv/config";
-import express from "express";
-import helmet from "helmet";
-import cors from "cors";
+const dotenv = require("dotenv");
+dotenv.config();
+const express = require("express");
+const helmet = require("helmet");
+const cors = require("cors");
 //Utilities
-import logger from "./global/utilities/logger.js";
+const logger = require("./global/utilities/logger.js");
+const { connectDB } = require("./config/db.js");
 //Middlewares
-import setResponseHeadersMW from "./global/middlewares/setResponseHeader.mw.js";
-import errorMW from "./global/middlewares/error.mw.js";
-import apiLoggerMW from "./global/middlewares/apiLogger.mw.js";
+const setResponseHeadersMW = require("./global/middlewares/setResponseHeader.mw.js");
+const errorMW = require("./global/middlewares/error.mw.js");
+const apiLoggerMW = require("./global/middlewares/apiLogger.mw.js");
 //Routes
-import identity from "./routes/identity.rts.js";
-import elearning from "./routes/elearning.rts.js";
-import { ktcScript } from "./scripts/createKtcScript.js";
-import { createQuizScript } from "./scripts/createQuizScript.js";
+const identity = require("./routes/identity.rts.js");
+const elearning = require("./routes/elearning.rts.js");
+const { ktcScript } = require("./scripts/createKtcScript.js");
+const { createQuizScript } = require("./scripts/createQuizScript.js");
 //<--DEPENDENCIES-->//
 
 const app = express();
@@ -40,10 +42,11 @@ app.use("/api/elearning", elearning);
 //Error Middleware
 app.use(errorMW);
 
-await createQuizScript();
-await ktcScript();
+createQuizScript();
+ktcScript();
 
 app.listen(PORT, () => {
+  connectDB();
   logger.info(
     { STATUS: "LISTENING", PORT },
     `Server successfully running on port ${PORT}`

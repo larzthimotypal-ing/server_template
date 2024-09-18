@@ -1,18 +1,18 @@
 //Constants
-import ResponseCodes from "../global/constants/responseCodes.const.js";
+const ResponseCodes = require("../global/constants/responseCodes.const.js");
 //Utilities
-import logger from "../global/utilities/logger.js";
-import errorHandler from "../global/utilities/error/errorHandler.js";
+const logger = require("../global/utilities/logger.js");
+const errorHandler = require("../global/utilities/error/errorHandler.js");
 //Services
-import {
+const {
   getProfileSrvc,
   loginUserSrvc,
   registerUserSrvc,
   updateProfileSrvc,
-} from "../services/identity.srvc.js";
-import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
+} = require("../services/identity.srvc.js");
+const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
 
-export const registerUserCtrl = async (req, res, next) => {
+const registerUserCtrl = async (req, res, next) => {
   const {
     email,
     password,
@@ -20,13 +20,12 @@ export const registerUserCtrl = async (req, res, next) => {
     lastName,
     mobileNumber,
     orgUnit,
-    orgNumber,
     orgEmail,
     position,
   } = req.body;
   try {
     const personalInfo = { firstName, lastName, mobileNumber };
-    const orgInfo = { orgUnit, orgNumber, orgEmail, position };
+    const orgInfo = { orgUnit, orgEmail, position };
     const result = await registerUserSrvc(
       email,
       password,
@@ -46,7 +45,7 @@ export const registerUserCtrl = async (req, res, next) => {
   }
 };
 
-export const loginUserCtrl = async (req, res, next) => {
+const loginUserCtrl = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const result = await loginUserSrvc(email, password);
@@ -63,7 +62,7 @@ export const loginUserCtrl = async (req, res, next) => {
   }
 };
 
-export const getProfileCtrl = async (req, res, next) => {
+const getProfileCtrl = async (req, res, next) => {
   const user = req.user;
   try {
     if (!user) {
@@ -88,14 +87,10 @@ export const getProfileCtrl = async (req, res, next) => {
   }
 };
 
-export const updateProfileCtrl = async (req, res, next) => {
+const updateProfileCtrl = async (req, res, next) => {
   const user = req.user;
   const { personalInformation, orgInformation } = req.body;
   try {
-    const result = await updateProfileSrvc(user.id, {
-      personalInformation,
-      orgInformation,
-    });
     if (!user) {
       return res.status(HttpStatusCodes.UNAUTHORIZED).json({
         success: false,
@@ -103,6 +98,10 @@ export const updateProfileCtrl = async (req, res, next) => {
         code: ResponseCodes.AUTH__UNAUTHORIZED_ACCESS,
       });
     }
+    const result = await updateProfileSrvc(user.id, {
+      personalInformation,
+      orgInformation,
+    });
     return res.status(HttpStatusCodes.OK).json({
       success: true,
       message: "Profile successfully updated.",
@@ -112,4 +111,11 @@ export const updateProfileCtrl = async (req, res, next) => {
     logger.trace("CTRL ERROR: Was not able to register a new user");
     next(error);
   }
+};
+
+module.exports = {
+  registerUserCtrl,
+  loginUserCtrl,
+  getProfileCtrl,
+  updateProfileCtrl,
 };

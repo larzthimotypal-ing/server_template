@@ -1,4 +1,4 @@
-import logger from "../utilities/logger.js";
+const logger = require("../utilities/logger.js");
 
 const apiLoggerMW = async (req, res, next) => {
   const {
@@ -28,4 +28,4 @@ const apiLoggerMW = async (req, res, next) => {
   next();
 };
 
-export default apiLoggerMW;
+module.exports = apiLoggerMW;

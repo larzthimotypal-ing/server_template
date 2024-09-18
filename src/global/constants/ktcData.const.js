@@ -1,4 +1,4 @@
-export const m1ktc = {
+const m1ktc = {
   quizId: "dd_m1q",
   ktc: [
     { id: "m1q_q001", answers: ["m1q_c002", "m1q_c004"] },
@@ -12,7 +12,7 @@ export const m1ktc = {
   ],
 };
 
-export const m2ktc = {
+const m2ktc = {
   quizId: "dd_m2q",
   ktc: [
     { id: "m2q_q001", answers: ["m2q_c002"] },
@@ -26,7 +26,7 @@ export const m2ktc = {
   ],
 };
 
-export const m3ktc = {
+const m3ktc = {
   quizId: "dd_m3q",
   ktc: [
     { id: "m3q_q001", answers: ["m3q_c002"] },
@@ -40,7 +40,7 @@ export const m3ktc = {
   ],
 };
 
-export const m4ktc = {
+const m4ktc = {
   quizId: "dd_m4q",
   ktc: [
     { id: "m4q_q001", answers: ["m4q_c003"] },
@@ -54,7 +54,7 @@ export const m4ktc = {
   ],
 };
 
-export const m5ktc = {
+const m5ktc = {
   quizId: "dd_m5q",
   ktc: [
     { id: "m5q_q001", answers: ["m5q_c002"] },
@@ -68,7 +68,7 @@ export const m5ktc = {
   ],
 };
 
-export const m6ktc = {
+const m6ktc = {
   quizId: "dd_m6q",
   ktc: [
     { id: "m6q_q001", answers: ["m6q_c003"] },
@@ -82,7 +82,7 @@ export const m6ktc = {
   ],
 };
 
-export const pretestktc = {
+const pretestktc = {
   quizId: "dd_pretest",
   ktc: [
     { id: "pretest_q001", answers: ["pretest_c002"] },
@@ -101,7 +101,8 @@ export const pretestktc = {
     { id: "pretest_q014", answers: ["pretest_c004"] },
   ],
 };
-export const posttestktc = {
+
+const posttestktc = {
   quizId: "dd_posttest",
   ktc: [
     { id: "posttest_q001", answers: ["posttest_c002"] },
@@ -119,4 +120,15 @@ export const posttestktc = {
     { id: "posttest_q013", answers: ["posttest_c003"] },
     { id: "posttest_q014", answers: ["posttest_c004"] },
   ],
+};
+
+module.exports = {
+  m1ktc,
+  m2ktc,
+  m3ktc,
+  m4ktc,
+  m5ktc,
+  m6ktc,
+  pretestktc,
+  posttestktc,
 };

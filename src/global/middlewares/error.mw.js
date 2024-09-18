@@ -1,6 +1,6 @@
-import ResponseCodes from "../constants/responseCodes.const.js";
-import errorHandler from "../utilities/error/errorHandler.js";
-import logger from "../utilities/logger.js";
+const ResponseCodes = require("../constants/responseCodes.const.js");
+const errorHandler = require("../utilities/error/errorHandler.js");
+const logger = require("../utilities/logger.js");
 
 const errorMW = async (err, req, res, next) => {
   try {
@@ -40,4 +40,4 @@ const errorMW = async (err, req, res, next) => {
   }
 };
 
-export default errorMW;
+module.exports = errorMW;

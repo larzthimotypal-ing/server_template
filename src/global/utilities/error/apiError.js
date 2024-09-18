@@ -1,6 +1,6 @@
-import HttpStatusCodes from "./../../constants/httpStatusCodes.const.js";
-import BaseError from "./baseError.js";
-import ResponseCodes from "../../constants/responseCodes.const.js";
+const HttpStatusCodes = require("./../../constants/httpStatusCodes.const.js");
+const BaseError = require("./baseError.js");
+const ResponseCodes = require("../../constants/responseCodes.const.js");
 
 class APIError extends BaseError {
   constructor(
@@ -14,7 +14,7 @@ class APIError extends BaseError {
   }
 }
 
-export default APIError;
+module.exports = APIError;
 
 // function newAPIError(name, httpCode, isOperational, desc) {
 //   const newError = new APIError(name, httpCode, isOperational, desc);

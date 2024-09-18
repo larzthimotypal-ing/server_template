@@ -13,4 +13,4 @@ const nonGradedQuizzes = {
   },
 };
 
-export default nonGradedQuizzes;
+module.exports = nonGradedQuizzes;

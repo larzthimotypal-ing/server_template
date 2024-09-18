@@ -11,4 +11,4 @@ const setResponseHeadersMW = function (req, res, next) {
   next();
 };
 
-export default setResponseHeadersMW;
+module.exports = setResponseHeadersMW;

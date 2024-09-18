@@ -10,4 +10,4 @@ const ResponseCodes = {
   FAILED: "1",
 };
 
-export default ResponseCodes;
+module.exports = ResponseCodes;

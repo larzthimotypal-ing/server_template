@@ -1,15 +1,15 @@
 //Libraries
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 //Constants
-import HttpStatusCodes from "../global/constants/httpStatusCodes.const.js";
-import APIError from "../global/utilities/error/apiError.js";
-import ResponseCodes from "../global/constants/responseCodes.const.js";
+const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
+const APIError = require("../global/utilities/error/apiError.js");
+const ResponseCodes = require("../global/constants/responseCodes.const.js");
 //Utilities
-import logger from "../global/utilities/logger.js";
+const logger = require("../global/utilities/logger.js");
 //Repositories
-import { findUserById } from "../data/repo/identity.repo.js";
-import {
+const { findUserById } = require("../data/repo/identity.repo.js");
+const {
   createKtc,
   createQuiz,
   getKtc,
@@ -20,12 +20,12 @@ import {
   saveQuizResponse,
   updateLessonProgress,
   updateQuizResponse,
-} from "../data/repo/elearning.repo.js";
-import QuizesLock from "../global/constants/quizesLock.const.js";
-import QuizzesId from "../global/constants/quizzesId.const.js";
-import nonGradedQuizzes from "../global/constants/nonGradedQuizzes.const.js";
+} = require("../data/repo/elearning.repo.js");
+const QuizesLock = require("../global/constants/quizesLock.const.js");
+const QuizzesId = require("../global/constants/quizzesId.const.js");
+const nonGradedQuizzes = require("../global/constants/nonGradedQuizzes.const.js");
 
-export const getLessonProgressSrvc = async (id) => {
+const getLessonProgressSrvc = async (id) => {
   try {
     const result = await getLessonProgress(id);
     if (!result) {
@@ -63,7 +63,7 @@ export const getLessonProgressSrvc = async (id) => {
   }
 };
 
-export const updateLessonProgressSrvc = async (id, module, lesson) => {
+const updateLessonProgressSrvc = async (id, module, lesson) => {
   try {
     const progress = await getLessonProgress(id);
     let result;
@@ -73,7 +73,8 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
       return incomingValue > currentValue;
     };
     if (!progress) {
-      result = await insertLessonProgress(id, module, lesson);
+      await insertLessonProgress(id, module, lesson);
+      result = { module, lesson };
     } else {
       const validProgress = validateProgressInput(
         { module: progress.module, lesson: progress.lesson },
@@ -110,7 +111,7 @@ export const updateLessonProgressSrvc = async (id, module, lesson) => {
   }
 };
 
-export const createQuizService = async (options) => {
+const createQuizService = async (options) => {
   const { quizId, questions, totalItems } = options;
   try {
     const quiz = await createQuiz(quizId, questions, totalItems);
@@ -120,7 +121,7 @@ export const createQuizService = async (options) => {
   }
 };
 
-export const getQuizSrvc = async (quizId) => {
+const getQuizSrvc = async (quizId) => {
   try {
     const quiz = await getQuiz(quizId);
     if (!quiz) {
@@ -146,11 +147,18 @@ export const getQuizSrvc = async (quizId) => {
       }
       return result;
     }
-    const randomizedItems = getRandomItemsFromArray(
-      quiz.questions,
-      quiz.totalItems
-    );
-    return { quizId: quiz._id, questions: randomizedItems };
+    let finalItems;
+    if (quiz._id !== "dd_postsurvey") {
+      const randomizedItems = getRandomItemsFromArray(
+        quiz.questions,
+        quiz.totalItems
+      );
+      finalItems = randomizedItems;
+    } else {
+      finalItems = quiz.questions;
+    }
+
+    return { quizId: quiz._id, questions: finalItems };
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to get lesson progress");
     return new APIError(
@@ -162,7 +170,7 @@ export const getQuizSrvc = async (quizId) => {
   }
 };
 
-export const createKtcSrvc = async (quizId, ktc) => {
+const createKtcSrvc = async (quizId, ktc) => {
   try {
     const result = await createKtc(quizId, ktc);
     logger.info("Key to Correction Created Successfully");
@@ -178,7 +186,7 @@ export const createKtcSrvc = async (quizId, ktc) => {
   }
 };
 
-export const saveQuizResponseSrvc = async (userId, quizId, answers) => {
+const saveQuizResponseSrvc = async (userId, quizId, answers) => {
   try {
     const ktcResult = await getKtc(quizId);
 
@@ -258,4 +266,13 @@ export const saveQuizResponseSrvc = async (userId, quizId, answers) => {
       "Error in getting key to correction"
     );
   }
+};
+
+module.exports = {
+  getLessonProgressSrvc,
+  updateLessonProgressSrvc,
+  createQuizService,
+  getQuizSrvc,
+  createKtcSrvc,
+  saveQuizResponseSrvc,
 };

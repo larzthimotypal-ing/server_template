@@ -1,26 +1,29 @@
 //Libraries
-import mysql from "mysql2";
-import Datastore from "nedb-promises";
+const Datastore = require("nedb-promises");
 //Constants
-import HttpStatusCodes from "../../global/constants/httpStatusCodes.const.js";
-import APIError from "../../global/utilities/error/apiError.js";
+const HttpStatusCodes = require("../../global/constants/httpStatusCodes.const.js");
+const APIError = require("../../global/utilities/error/apiError.js");
 //Utilities
-import logger from "../../global/utilities/logger.js";
+const logger = require("../../global/utilities/logger.js");
 const users = Datastore.create("Users.db");
 const personalInfo = Datastore.create("PersonalInfo.db");
 const organizationInfo = Datastore.create("OrganizationInfo.db");
-
-export const createUser = async (id, email, password) => {
+//MongoDb Model
+const User = require("../models/User.model.js");
+const PersonalInfo = require("../models/PersonalInfo.model.js");
+const OrganizationInfo = require("../models/OrganizationInfo.model.js");
+const createUser = async (id, email, password) => {
   try {
-    const newUser = await users.insert({
-      _id: id,
+    const newUser = new User({
+      userId: id,
       email,
       password,
     });
-
+    await newUser.save();
     return newUser;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to create new user");
+    logger.error(error);
     return new APIError(
       "DATABASE_ACCESS",
       HttpStatusCodes.INTERNAL_SERVER,
@@ -30,9 +33,10 @@ export const createUser = async (id, email, password) => {
   }
 };
 
-export const findUserByEmail = async (email) => {
+const findUserByEmail = async (email) => {
   try {
-    const user = await users.findOne({ email });
+    const user = await User.findOne({ email }).lean();
+
     return user;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to find a user");
@@ -45,9 +49,9 @@ export const findUserByEmail = async (email) => {
   }
 };
 
-export const findUserById = async (id) => {
+const findUserById = async (userId) => {
   try {
-    const user = await users.findOne({ _id: id });
+    const user = await User.findOne({ userId }).lean();
     return user;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to find a user");
@@ -60,20 +64,17 @@ export const findUserById = async (id) => {
   }
 };
 
-export const createPersonalInfo = async (
-  id,
-  firstName,
-  lastName,
-  mobileNumber
-) => {
+const createPersonalInfo = async (id, firstName, lastName, mobileNumber) => {
   try {
-    const result = await personalInfo.insert({
-      _id: id,
+    const newPersonalInfo = new PersonalInfo({
+      userId: id,
       firstName,
       lastName,
       mobileNumber,
     });
-    return result;
+    await newPersonalInfo.save();
+
+    return newPersonalInfo;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to create personal info");
     return new APIError(
@@ -85,9 +86,9 @@ export const createPersonalInfo = async (
   }
 };
 
-export const findPersonalInfoById = async (id) => {
+const findPersonalInfoById = async (userId) => {
   try {
-    const result = await personalInfo.findOne({ _id: id });
+    const result = await PersonalInfo.findOne({ userId }).lean();
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to find personal info");
@@ -100,10 +101,14 @@ export const findPersonalInfoById = async (id) => {
   }
 };
 
-export const updatePersonalInfoById = async (id, data) => {
+const updatePersonalInfoById = async (userId, data) => {
   try {
-    const result = await personalInfo.updateOne({ _id: id }, data);
-    return result;
+    const personalInfo = await PersonalInfo.findOneAndUpdate(
+      { userId },
+      { $set: data },
+      { new: true }
+    ).lean();
+    return personalInfo;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to update personal info");
     return new APIError(
@@ -115,16 +120,17 @@ export const updatePersonalInfoById = async (id, data) => {
   }
 };
 
-export const createOrgInfo = async (id, unit, number, email, position) => {
+const createOrgInfo = async (id, unit, email, position) => {
   try {
-    const result = await organizationInfo.insert({
-      _id: id,
+    const newOrgInfo = new OrganizationInfo({
+      userId: id,
       unit,
-      number,
       email,
       position,
     });
-    return result;
+    await newOrgInfo.save();
+
+    return newOrgInfo;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to create organizational info");
     return new APIError(
@@ -136,9 +142,9 @@ export const createOrgInfo = async (id, unit, number, email, position) => {
   }
 };
 
-export const findOrgInfoById = async (id) => {
+const findOrgInfoById = async (userId) => {
   try {
-    const result = await organizationInfo.findOne({ _id: id });
+    const result = await OrganizationInfo.findOne({ userId }).lean();
     return result;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to find organizational info");
@@ -151,10 +157,14 @@ export const findOrgInfoById = async (id) => {
   }
 };
 
-export const updateOrgInfoById = async (id, orgInfo) => {
+const updateOrgInfoById = async (userId, data) => {
   try {
-    const result = await organizationInfo.updateOne({ _id: id }, orgInfo);
-    return result;
+    const orgInfo = await OrganizationInfo.findOneAndUpdate(
+      { userId },
+      { $set: data },
+      { new: true }
+    ).lean();
+    return orgInfo;
   } catch (error) {
     logger.trace("REPO ERROR: Was not able to update org info");
     return new APIError(
@@ -164,4 +174,16 @@ export const updateOrgInfoById = async (id, orgInfo) => {
       "Error in updating org info"
     );
   }
+};
+
+module.exports = {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  createPersonalInfo,
+  findPersonalInfoById,
+  updatePersonalInfoById,
+  createOrgInfo,
+  findOrgInfoById,
+  updateOrgInfoById,
 };
