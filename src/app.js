@@ -20,7 +20,7 @@ const { createQuizScript } = require("./scripts/createQuizScript.js");
 //<--DEPENDENCIES-->//
 
 const app = express();
-const PORT = 5000 || process.env.PORT;
+const PORT = 10000 || process.env.PORT;
 
 //express config
 app.use(express.json());
