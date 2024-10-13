@@ -8,6 +8,7 @@ const {
   m6q,
   pretest,
   posttest,
+  postSurvey,
 } = require("../global/constants/quizzesData.const.js");
 const logger = require("../global/utilities/logger.js");
 
@@ -23,6 +24,7 @@ const createQuizScript = async () => {
     await createQuizService(m6q);
     await createQuizService(pretest);
     await createQuizService(posttest);
+    await createQuizService(postSurvey);
   } catch (error) {
     logger.error("Create Quiz Script was not run successfully");
   }
