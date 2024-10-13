@@ -9,6 +9,7 @@ const {
   loginUserSrvc,
   registerUserSrvc,
   updateProfileSrvc,
+  resetPasswordSrvc,
 } = require("../services/identity.srvc.js");
 const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
 
@@ -102,6 +103,7 @@ const updateProfileCtrl = async (req, res, next) => {
       personalInformation,
       orgInformation,
     });
+    if (errorHandler.isTrustedError(result)) return next(result);
     return res.status(HttpStatusCodes.OK).json({
       success: true,
       message: "Profile successfully updated.",
@@ -113,9 +115,32 @@ const updateProfileCtrl = async (req, res, next) => {
   }
 };
 
+const resetPasswordCtrl = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const result = await resetPasswordSrvc(email);
+    if (errorHandler.isTrustedError(result)) return next(result);
+    if (result)
+      return res.status(HttpStatusCodes.OK).json({
+        success: true,
+        message: "Email with the reset password link has been sent.",
+      });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to reset the password of the user");
+    next(error);
+  }
+};
+
+const verifyResetPasswordCtrl = async (req, res, next) => {
+  const { token } = req.body;
+  try {
+  } catch (error) {}
+};
+
 module.exports = {
   registerUserCtrl,
   loginUserCtrl,
   getProfileCtrl,
   updateProfileCtrl,
+  resetPasswordCtrl,
 };

@@ -21,6 +21,7 @@
     "mongoose": "^8.6.0",
     "mysql2": "^3.11.0",
     "nedb-promises": "^6.2.3",
+    "nodemailer": "^6.9.15",
     "pino": "^9.2.0",
     "prettier": "^3.3.2",
     "uuidv4": "^6.2.13"

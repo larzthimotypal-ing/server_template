@@ -8,6 +8,7 @@ const APIError = require("../global/utilities/error/apiError.js");
 const ResponseCodes = require("../global/constants/responseCodes.const.js");
 //Utilities
 const logger = require("../global/utilities/logger.js");
+const sendEmail = require("../global/utilities/email/emailSender.js");
 //Repo
 const {
   createOrgInfo,
@@ -238,9 +239,70 @@ const updateProfileSrvc = async (id, updateData) => {
   }
 };
 
+const resetPasswordSrvc = async (email) => {
+  try {
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+      return new APIError(
+        "INCORRECT_CREDENTIALS",
+        HttpStatusCodes.NOT_FOUND,
+        true,
+        "CREDENTIALS ARE INCORRECT",
+        ResponseCodes.AUTH__CREDENTIALS_ARE_INCORRECT
+      );
+    }
+    const secret = process.env.ACCESS_TOKEN_SECRET;
+    const { userId } = user;
+    const resetToken = jwt.sign({ userId }, secret, {
+      subject: "resetPasswordToken",
+      expiresIn: "1h",
+    });
+    function generateResetPasswordEmail(resetLink, resetToken, expirationTime) {
+      logger.info(`${resetLink}/${resetToken}`);
+      return `
+      <html>
+      <body>
+        <h2>Password Reset Request</h2>
+        <p>Greetings!</p>
+        <p>We received a request to reset your password. Click the link below to set a new password:</p>
+        <a href="${resetLink}/${resetToken}" target="_blank">Reset Password</a>
+        <p><strong>Note:</strong> This link will expire in ${expirationTime} hour. If you did not request this change, please ignore this email.</p>
+        <p>Thanks,</p>
+        <p>The MBC Team</p>
+      </body>
+      </html>
+      `;
+    }
+    const emailResetLink = `${process.env.FE_URL}/reset-password`;
+    console.log(emailResetLink);
+    const emailContent = generateResetPasswordEmail(
+      emailResetLink,
+      resetToken,
+      1
+    );
+    const emailResult = sendEmail(
+      "Forgot Password",
+      { html: emailContent },
+      email
+    );
+    return resetToken;
+  } catch (error) {
+    logger.trace("SRVC ERROR: Was not able to update reset user password");
+    logger.error(error);
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user profile"
+    );
+  }
+};
+
 module.exports = {
   registerUserSrvc,
   loginUserSrvc,
   getProfileSrvc,
   updateProfileSrvc,
+  resetPasswordSrvc,
 };
