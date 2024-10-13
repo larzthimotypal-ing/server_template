@@ -302,12 +302,12 @@ const resetPasswordSrvc = async (email) => {
 
 const verifyResetTokenSrvc = async (token, newPassword) => {
   try {
-    logger.info("LARZ");
     const secret = process.env.ACCESS_TOKEN_SECRET;
     const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.userId;
     const user = await findUserById(userId);
-    const newUser = await updateUser(userId, newPassword, null);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const newUser = await updateUser(userId, hashedPassword, null);
     return newUser;
   } catch (error) {
     logger.trace("SRVC ERROR: Was not able to update reset user password");

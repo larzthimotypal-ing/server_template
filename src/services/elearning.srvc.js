@@ -148,6 +148,7 @@ const getQuizSrvc = async (quizId) => {
       return result;
     }
     let finalItems;
+
     if (quiz._id !== "dd_postsurvey") {
       const randomizedItems = getRandomItemsFromArray(
         quiz.questions,
