@@ -64,6 +64,26 @@ const findUserById = async (userId) => {
   }
 };
 
+const updateUser = async (userId, newPassword, resetToken) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { userId },
+      { $set: { password: newPassword, resetToken } },
+      { new: true }
+    ).lean();
+    return user;
+  } catch (error) {
+    logger.trace("REPO ERROR: Was not able to find a user");
+    return new APIError(
+      "DATABASE_ACCESS",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user"
+    );
+    f;
+  }
+};
+
 const createPersonalInfo = async (id, firstName, lastName, mobileNumber) => {
   try {
     const newPersonalInfo = new PersonalInfo({
@@ -186,4 +206,5 @@ module.exports = {
   createOrgInfo,
   findOrgInfoById,
   updateOrgInfoById,
+  updateUser,
 };

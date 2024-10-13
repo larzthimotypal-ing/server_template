@@ -20,6 +20,7 @@ const {
   findUserById,
   updateOrgInfoById,
   updatePersonalInfoById,
+  updateUser,
 } = require("../data/repo/identity.repo.js");
 
 const registerUserSrvc = async (email, password, personalInfo, orgInfo) => {
@@ -299,10 +300,32 @@ const resetPasswordSrvc = async (email) => {
   }
 };
 
+const verifyResetTokenSrvc = async (token, newPassword) => {
+  try {
+    logger.info("LARZ");
+    const secret = process.env.ACCESS_TOKEN_SECRET;
+    const decodedToken = jwt.verify(token, secret);
+    const userId = decodedToken.userId;
+    const user = await findUserById(userId);
+    const newUser = await updateUser(userId, newPassword, null);
+    return newUser;
+  } catch (error) {
+    logger.trace("SRVC ERROR: Was not able to update reset user password");
+    logger.error(error);
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user profile"
+    );
+  }
+};
+
 module.exports = {
   registerUserSrvc,
   loginUserSrvc,
   getProfileSrvc,
   updateProfileSrvc,
   resetPasswordSrvc,
+  verifyResetTokenSrvc,
 };
