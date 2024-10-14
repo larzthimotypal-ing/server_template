@@ -22,8 +22,11 @@ const { createQuizScript } = require("./scripts/createQuizScript.js");
 const app = express();
 const PORT = 10000 || process.env.PORT;
 
+const path = require("path");
+
 //express config
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(setResponseHeadersMW);

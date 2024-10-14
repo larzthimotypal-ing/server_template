@@ -1,13 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-const bgLeft = fs.readFileSync(
-  path.join(__dirname, "../../../assets/images/bg-l.png")
-);
 const USAID = "";
 const MBC = "";
 const bgRight = "";
 
-const Ecert = ({ name, date }) => {
+const Ecert = ({ name, date, bgLeft }) => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const dateObj = new Date(dateString);

@@ -386,8 +386,6 @@ const generateCertSrvc = async (email) => {
   }
 };
 
-generateCertSrvc("larzthimoty2421@gmail.com");
-
 module.exports = {
   registerUserSrvc,
   loginUserSrvc,
@@ -395,4 +393,5 @@ module.exports = {
   updateProfileSrvc,
   resetPasswordSrvc,
   verifyResetTokenSrvc,
+  generateCertSrvc,
 };

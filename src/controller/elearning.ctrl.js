@@ -10,6 +10,7 @@ const {
   saveQuizResponseSrvc,
   updateLessonProgressSrvc,
 } = require("../services/elearning.srvc.js");
+const { generateCertSrvc } = require("../services/identity.srvc.js");
 
 const getCourseProgressCtrl = async (req, res, next) => {
   const user = req.user;
@@ -90,6 +91,7 @@ const saveQuizResponseCtrl = async (req, res, next) => {
 
 const generateCertCtrl = async (req, res, next) => {
   try {
+    await generateCertSrvc("larzthimoty2421@gmail.com");
     return res.status(HttpStatusCodes.OK).json({
       success: true,
       message: "Email Sent successfully",
