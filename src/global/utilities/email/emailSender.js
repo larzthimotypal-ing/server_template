@@ -14,13 +14,14 @@ logger.info(transport);
 let transporter = nodemailer.createTransport(transport);
 
 async function sendEmail(subject, content, receiver) {
-  const { text, html } = content;
+  const { text, html, attachments } = content;
   const mailOptions = {
     from: process.env.EMAIL_SENDER,
     to: receiver,
     subject,
     text,
     html,
+    attachments,
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {

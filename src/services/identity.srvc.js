@@ -2,10 +2,17 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { uuid } = require("uuidv4");
+const jspdf = require("jspdf");
+const pupp = require("puppeteer");
+const hbs = require("handlebars");
+const path = require("path");
+const fs = require("fs-extra");
+const fss = require("fs");
 //Constants
 const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
 const APIError = require("../global/utilities/error/apiError.js");
 const ResponseCodes = require("../global/constants/responseCodes.const.js");
+const Ecert = require("../global/constants/email/ecert.const.js");
 //Utilities
 const logger = require("../global/utilities/logger.js");
 const sendEmail = require("../global/utilities/email/emailSender.js");
@@ -320,6 +327,65 @@ const verifyResetTokenSrvc = async (token, newPassword) => {
     );
   }
 };
+
+const createPdfBuffer = async (html) => {
+  try {
+    const puppeteerLaunchOptions = {
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    };
+    var browser = await pupp.launch(puppeteerLaunchOptions);
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "domcontentloaded" });
+    const pdfBuffer = await page.pdf({
+      path: __dirname + "/../test1.pdf",
+      printBackground: true,
+      format: "letter",
+      landscape: true,
+      margin: {
+        top: "1cm",
+        right: "1cm",
+        bottom: "1cm",
+        left: "1cm",
+      },
+      // displayHeaderFooter: true,
+      // headerTemplate: `
+      // '<div style="font-family: Helvetica, sans-serif; font-size: 20px; text-align: center; margin-top:30px; font-weight: bold;  width: 100%; position: absolute; top: 0; left: 0;">Career Discovery with Dr. J. Procter <hr style="border: none; border-top: 1px solid black; margin-top: 2mm;" /></div>',
+      // `,
+      // footerTemplate: ` <div style="font-size: 10px; padding-top: 5px; text-align: center; width: 100%;">
+      //     <span>Self-Directed Search</span> - <span class="pageNumber"></span>
+      //   </div>`,
+    });
+    await browser.close();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const generateCertSrvc = async (email) => {
+  try {
+    const html = Ecert({ name: "Test", date: new Date() });
+    const pdfBuffer = await createPdfBuffer(html);
+    const emailAttachment = {
+      path: __dirname + "/../test1.pdf",
+      filename: `test.pdf`,
+      contentType: "contentType",
+    };
+    const emailContent = {
+      text: "Congratulations for finishing the Digital Democracy Course! Attached is your certificate.",
+      attachments: [emailAttachment],
+    };
+    const emailResult = sendEmail(
+      "Certificate of Completion",
+      emailContent,
+      email
+    );
+    console.log("SUCCESS");
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
+generateCertSrvc("larzthimoty2421@gmail.com");
 
 module.exports = {
   registerUserSrvc,
