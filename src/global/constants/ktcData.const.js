@@ -21,7 +21,7 @@ const m2ktc = {
     { id: "m2q_q004", answers: ["m2q_c001"] },
     { id: "m2q_q005", answers: ["m2q_c002"] },
     { id: "m2q_q006", answers: ["m2q_c001"] },
-    { id: "m2q_q007", answers: ["m2q_c004"] },
+    { id: "m2q_q007", answers: ["m2q_c003"] },
     { id: "m2q_q008", answers: ["m2q_c004"] },
   ],
 };
