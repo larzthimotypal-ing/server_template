@@ -1,8 +1,17 @@
-const USAID = "";
-const MBC = "";
-const bgRight = "";
+const fs = require("fs");
+const path = require("path");
 
-const Ecert = ({ name, date, bgLeft }) => {
+const toBase64 = (filepath) => {
+  return fs.readFileSync(filepath).toString("base64");
+};
+const bgLeft = toBase64(path.join(__dirname, "../../../public/bg-l.png"));
+const USAID = toBase64(path.join(__dirname, "../../../public/usaid.png"));
+const MBC = toBase64(path.join(__dirname, "../../../public/mbc-logo.png"));
+const bgRight = toBase64(path.join(__dirname, "../../../public/bg-r.png"));
+
+const getImageSrc = (base64String) => `data:image/png;base64,${base64String}`;
+
+const Ecert = ({ name, date }) => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const dateObj = new Date(dateString);
@@ -11,7 +20,7 @@ const Ecert = ({ name, date, bgLeft }) => {
   return `<div style="display: flex; justify-content: center; align-items: center; padding: 0; margin: 0;">
       <div style="flex: 1; display: flex; justify-content: flex-start; align-items: center; margin-right: 16px; height: 985px;">
         <img
-          src="${bgLeft}"
+          src="${getImageSrc(bgLeft)}"
           alt="Background Left"
           style="height: 985px; width: auto;"
         />
@@ -19,8 +28,8 @@ const Ecert = ({ name, date, bgLeft }) => {
       <div style="border: 4px solid black; padding: 24px; width: 1000px; height: 750px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <div style="width: 100%; height: auto; text-align: center; font-family: 'Poppins'; display: flex; flex-direction: column; align-items: center;">
           <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin-bottom: 16px;">
-            <img src="${USAID}" alt="Image 1" style="width: 260px;" />
-            <img src="${MBC}" alt="Image 2" style="width: 150px;" />
+            <img src="${getImageSrc(USAID)}" alt="Image 1" style="width: 260px;" />
+            <img src="${getImageSrc(MBC)}" alt="Image 2" style="width: 150px;" />
           </div>
 
           <div style="margin-bottom: 24px;">
@@ -63,7 +72,7 @@ const Ecert = ({ name, date, bgLeft }) => {
       </div>
       <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; margin-left: 14px; height: 985px;">
         <img
-          src="${bgRight}"
+          src="${getImageSrc(bgRight)}"
           alt="Background Right"
           style="height: 985px; width: auto;"
         />
