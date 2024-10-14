@@ -88,9 +88,22 @@ const saveQuizResponseCtrl = async (req, res, next) => {
   }
 };
 
+const generateCertCtrl = async (req, res, next) => {
+  try {
+    return res.status(HttpStatusCodes.OK).json({
+      success: true,
+      message: "Email Sent successfully",
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to save quiz response");
+    next(error);
+  }
+};
+
 module.exports = {
   getCourseProgressCtrl,
   updateCourseProgressCtrl,
   getQuizCtrl,
   saveQuizResponseCtrl,
+  generateCertCtrl,
 };

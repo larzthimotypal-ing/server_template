@@ -1,11 +1,11 @@
-const bgLeft =
-  "https://drive.google.com/file/d/10JzcKGb2xmjNOWMFh0hlhATIHUW5y48a/view?usp=sharing";
-const USAID =
-  "https://drive.google.com/file/d/1mbfEqAnP6rsvlECjG4oSs9KTwlJA_7BG/view?usp=sharing";
-const MBC =
-  "https://drive.google.com/file/d/1D9jv_IN3rivWVuyXkr21I7JmCX009jP2/view?usp=sharing";
-const bgRight =
-  "https://drive.google.com/file/d/1bScd6b3IBr7F6hAh2Rra9zFNR9h8T8fA/view?usp=sharing";
+const fs = require("fs");
+const path = require("path");
+const bgLeft = fs.readFileSync(
+  path.join(__dirname, "../../../assets/images/bg-l.png")
+);
+const USAID = "";
+const MBC = "";
+const bgRight = "";
 
 const Ecert = ({ name, date }) => {
   const formatDate = (dateString) => {

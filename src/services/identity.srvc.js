@@ -6,8 +6,9 @@ const jspdf = require("jspdf");
 const pupp = require("puppeteer");
 const hbs = require("handlebars");
 const path = require("path");
-const fs = require("fs-extra");
-const fss = require("fs");
+const fs = require("fs");
+const { promisify } = require("util");
+const readFileAsync = promisify(fs.readFile);
 //Constants
 const HttpStatusCodes = require("../global/constants/httpStatusCodes.const.js");
 const APIError = require("../global/utilities/error/apiError.js");
@@ -339,13 +340,13 @@ const createPdfBuffer = async (html) => {
     const pdfBuffer = await page.pdf({
       path: __dirname + "/../test1.pdf",
       printBackground: true,
-      format: "letter",
-      landscape: true,
+      width: "1232px",
+      height: "1003px",
       margin: {
-        top: "1cm",
-        right: "1cm",
-        bottom: "1cm",
-        left: "1cm",
+        top: "0",
+        right: "0",
+        bottom: "0",
+        left: "0",
       },
       // displayHeaderFooter: true,
       // headerTemplate: `

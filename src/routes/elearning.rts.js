@@ -7,6 +7,7 @@ const {
   updateCourseProgressCtrl,
   getQuizCtrl,
   saveQuizResponseCtrl,
+  generateCertCtrl,
 } = require("../controller/elearning.ctrl.js");
 //Middlewares
 const { authGuard } = require("./../global/middlewares/authGuard.mw.js");
@@ -23,5 +24,7 @@ router
   .route("/quiz/:quizId")
   .get(authGuard, getQuizCtrl)
   .post(authGuard, saveQuizResponseCtrl);
+
+router.route("/certificate").get(authGuard, generateCertCtrl);
 
 module.exports = router;
