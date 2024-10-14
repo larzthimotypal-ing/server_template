@@ -94,11 +94,11 @@ const pretestktc = {
     { id: "pretest_q007", answers: ["pretest_c002"] },
     { id: "pretest_q008", answers: ["pretest_c002"] },
     { id: "pretest_q009", answers: ["pretest_c002"] },
-    { id: "pretest_q010", answers: ["pretest_c002"] },
+    { id: "pretest_q010", answers: ["pretest_c005"] },
     { id: "pretest_q011", answers: ["pretest_c002"] },
-    { id: "pretest_q012", answers: ["pretest_c002"] },
-    { id: "pretest_q013", answers: ["pretest_c003"] },
-    { id: "pretest_q014", answers: ["pretest_c004"] },
+    { id: "pretest_q012", answers: ["pretest_c003"] },
+    { id: "pretest_q013", answers: ["pretest_c004"] },
+    { id: "pretest_q014", answers: ["pretest_c002"] },
   ],
 };
 

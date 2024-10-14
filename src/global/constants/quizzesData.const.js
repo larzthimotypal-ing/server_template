@@ -966,46 +966,48 @@ const m6q = {
       id: "m6q_q001",
       type: "radio",
       questionaire:
-        "What is the most important step in the digital democracy process?",
+        "What should be done if new concerns have appeared upon review of project, now that the suggestions have been implemented by the LGU?",
       choices: [
         {
           choiceId: "m6q_c001",
-          value: "Citizen Assembly Opening ",
+          value: "Citizen Assembly Opening",
         },
         {
           choiceId: "m6q_c002",
-          value: "Launch of Survey and Analysis of Data",
+          value:
+            "Input the new concerns in a Digital Democracy Roadmap for proper documentation",
         },
         {
           choiceId: "m6q_c003",
-          value: "Report what happens next",
+          value:
+            "Incorporate the concerns and feedback and undergo continuous improvement",
         },
         {
           choiceId: "m6q_c004",
-          value: "All of the above",
+          value:
+            "Turn these over properly to the decision makers of the next term",
         },
       ],
     },
     {
       id: "m6q_q002",
       type: "radio",
-      questionaire:
-        "Through regularly reviewing and renewing our strategies...",
+      questionaire: "By regularly reviewing and renewing our strategies...",
       choices: [
         {
           choiceId: "m6q_c001",
           value:
-            "we can modify our approaches per project and incorporate feedback to refine our methods.",
+            "we can incorporate feedback to refine our methods for our next projects.",
         },
         {
           choiceId: "m6q_c002",
           value:
-            "we can recycle our past approaches to our future projects assuring us of probable success.",
+            "we can recycle our past approaches and be assured of our future project's probable success.",
         },
         {
           choiceId: "m6q_c003",
           value:
-            "we can exponentially gain support from our stakeholders through steady increase in social media presence. ",
+            "we can gain support from our stakeholders because of increased social media presence.",
         },
         {
           choiceId: "m6q_c004",
@@ -1041,22 +1043,22 @@ const m6q = {
       id: "m6q_q004",
       type: "radio",
       questionaire:
-        "As per the Strengthening Small Business in Iligan City case study, upon knowing the result that home-based non-registered micro-businesses needed the most support...",
+        "Upon knowing the result that home-based non-registered micro-businesses needed the most support in the Strengthening Small Business in Iligan City case study...",
       choices: [
         {
           choiceId: "m6q_c001",
           value:
-            "the Legazpi and Iligan LGU pledged to opted to review and renew their data collection methods.",
+            "the Legazpi and Iligan LGU pledged to review and renew their data collection methods.",
         },
         {
           choiceId: "m6q_c002",
           value:
-            "the Legazpi and Iligan LGU opened another assembly with a more targeted audience. ",
+            "the Legazpi and Iligan LGU opened another assembly with a more targeted audience.",
         },
         {
           choiceId: "m6q_c003",
           value:
-            "the Legazpi and Iligan LGU pledged to craft inclusive and effective policies ",
+            "the Legazpi and Iligan LGU pledged to craft inclusive and effective policies",
         },
         {
           choiceId: "m6q_c004",
@@ -1068,11 +1070,11 @@ const m6q = {
       id: "m6q_q005",
       type: "radio",
       questionaire:
-        "As per the case of the Himamaylan LGU, how was the data collected from the youth from their Digital Democracy initiative?",
+        "How was the data collected from the youth of Himamaylan from their Digital Democracy initiative as per the case study?",
       choices: [
         {
           choiceId: "m6q_c001",
-          value: "Tailor-fitting the data for crafting policies ",
+          value: "Tailor-fitting the data for crafting policies",
         },
         {
           choiceId: "m6q_c002",
@@ -1094,7 +1096,7 @@ const m6q = {
       id: "m6q_q006",
       type: "radio",
       questionaire:
-        "Which of the following is information needed for the Digital Democracy Road Map ",
+        "Which of the following information is needed for the Digital Democracy Road Map?",
       choices: [
         {
           choiceId: "m6q_c001",
@@ -1118,7 +1120,7 @@ const m6q = {
       id: "m6q_q007",
       type: "radio",
       questionaire:
-        "All of the steps of the Digital Democracy process is indicated in the DIgital Democracy Road Map to ensure accountability and transparency.",
+        "TRUE or FALSE: All of the steps of the Digital Democracy process are indicated in the Road Map to ensure accountability and transparency.",
       choices: [
         {
           choiceId: "m6q_c001",
@@ -1134,7 +1136,7 @@ const m6q = {
       id: "m6q_q008",
       type: "radio",
       questionaire:
-        "It was found through the feedback data of of their Digital Democracy initiative that Covid-19 vaccinations are not necessary to strengthen small businesses in Iligan City ",
+        "TRUE or FALSE: It was found through the feedback data of their Digital Democracy initiative that Covid-19 vaccinations are not necessary to strengthen small businesses in Iligan City",
       choices: [
         {
           choiceId: "m6q_c001",
@@ -1157,23 +1159,23 @@ const pretest = {
       id: "pretest_q001",
       type: "radio",
       questionaire:
-        "Digital Democracy is all about using information and _______________to boost democracy and to get more people involved sa government decision-making.",
+        "Digital Democracy is all about using information and THIS to boost democracy and to get more people involved in government decision-making.",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "communities and their tools",
+          value: "Communities and their tools",
         },
         {
           choiceId: "pretest_c002",
-          value: "communication technology, or ICT,",
+          value: "Communication technology, or ICT",
         },
         {
           choiceId: "pretest_c003",
-          value: "collaborative technology",
+          value: "Collaborative technology",
         },
         {
           choiceId: "pretest_c004",
-          value: "communication theories",
+          value: "Communication theories",
         },
       ],
     },
@@ -1181,7 +1183,7 @@ const pretest = {
       id: "pretest_q002",
       type: "radio",
       questionaire:
-        "Digital Democracy may replace traditional face-to-face consultations",
+        "TRUE or FALSE: Digital Democracy may replace traditional face-to-face consultations",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1197,7 +1199,7 @@ const pretest = {
       id: "pretest_q003",
       type: "radio",
       questionaire:
-        "This thing is what you need to take into consideration when assessing your community’s digital infrastructure landscape.",
+        "This is what you need  to consider when assessing your community’s digital infrastructure landscape.",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1248,7 +1250,7 @@ const pretest = {
       id: "pretest_q005",
       type: "radio",
       questionaire:
-        "This helps to break down complex issues into manageable parts to identify root causes and their interrelationships.",
+        "What helps break down complex issues into manageable parts by identifying the root causes, its effects and their interrelationships?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1279,11 +1281,11 @@ const pretest = {
         },
         {
           choiceId: "pretest_c002",
-          value: "X",
+          value: '"X (formerly Twitter)"',
         },
         {
           choiceId: "pretest_c003",
-          value: "Po.Is",
+          value: "Pol.is",
         },
         {
           choiceId: "pretest_c004",
@@ -1295,7 +1297,7 @@ const pretest = {
       id: "pretest_q007",
       type: "radio",
       questionaire:
-        "In formulating survey questions, what particular legislation is important in aiding your data's reliability and ensuring your respondent's trust?",
+        "In formulating survey questions, what particular legislation is important in aiding your data's reliability and ensuring your respondents' trust?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1319,23 +1321,27 @@ const pretest = {
       id: "pretest_q008",
       type: "radio",
       questionaire:
-        "The success of a digital democracy initiative relies on the..",
+        "Which of the following is an important factor to consider in implementing your Digital Democracy initiative?",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "Swift implementation of your roadmap",
+          value:
+            "Swift implementation of your roadmap to maintain a strict schedule",
         },
         {
           choiceId: "pretest_c002",
-          value: "Flexible pace of your timeline",
+          value:
+            "Flexible pace of your timeline according to the needs of your stakeholders in each process",
         },
         {
           choiceId: "pretest_c003",
-          value: "Number of respondents of your questionnaire",
+          value:
+            "Having a strict number of respondents and gathering more respondents if the number is not met",
         },
         {
           choiceId: "pretest_c004",
-          value: "Ability to yield a high reach in your social media campaigns",
+          value:
+            "High reach of your social media campaigns to all possible channels to promote the initiative",
         },
       ],
     },
@@ -1343,22 +1349,24 @@ const pretest = {
       id: "pretest_q009",
       type: "radio",
       questionaire:
-        "Adapting a multi-sectoral approach is highly suggested for all digital democracy initiatives at all times",
+        "TRUE or FALSE: Adapting a multi-sectoral approach is highly suggested for all digital democracy initiatives at all times.",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "TRUE",
+          value:
+            "True, because one may never know if the policy may indirectly affect all the constituents.",
         },
         {
           choiceId: "pretest_c002",
-          value: "FALSE",
+          value:
+            "False, because having a targetted approach may help in better policy-making for the sector in direct need of the Digital Democracy initiative.",
         },
       ],
     },
     {
       id: "pretest_q010",
       type: "radio",
-      questionaire: "When data is analyzed,  data scientists may....",
+      questionaire: "When data is analyzed,  data scientists may...",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1379,58 +1387,37 @@ const pretest = {
           value:
             "visualize and keep the results as simple when it comes to the presentation proper.",
         },
+        {
+          choiceId: "pretest_c005",
+          value: "All of the above",
+        },
       ],
     },
     {
       id: "pretest_q011",
       type: "radio",
       questionaire:
-        "Right after the results are shared to the assembly, and policies are designed according to the recommendations of the stakeholdersthe digital democracy initiative may...",
+        "Should digital democracy initiatives employ a multi-sectoral stakeholder approach to ensure success?",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "completely close, and move on to the next project.",
+          value:
+            "Yes, as all sectors regardless of their involvement, always need to participate in good governance.",
         },
         {
           choiceId: "pretest_c002",
-          value: "gather feedback again for continuous improvement.",
+          value:
+            "At times, especially if there is a targeted sector who is directly involved and affected by the issue or policy at hand. ",
         },
         {
           choiceId: "pretest_c003",
-          value: "reuse the methods used in other to inform other policies.",
-        },
-        {
-          choiceId: "pretest_c004",
           value:
-            "convene after 6 months to give way for a fresh perspective on the next initiative.",
+            "No, as there should always be one targeted sector for every policy.",
         },
       ],
     },
     {
       id: "pretest_q012",
-      type: "radio",
-      questionaire:
-        "Digital Democracy initiatives employ a multi-sectoral stakeholder approach",
-      choices: [
-        {
-          choiceId: "pretest_c001",
-          value:
-            "Always, as all sectors need to participate in good governance",
-        },
-        {
-          choiceId: "pretest_c002",
-          value:
-            "At times, especially if the sector targetted is directly involved and affected by the issue or policy at hand.",
-        },
-        {
-          choiceId: "pretest_c003",
-          value:
-            "Never, as there should always be a targetted sector for each and every policy.",
-        },
-      ],
-    },
-    {
-      id: "pretest_q013",
       type: "radio",
       questionaire:
         "Which of the following is NOT a characteristic of good governance?",
@@ -1454,10 +1441,10 @@ const pretest = {
       ],
     },
     {
-      id: "pretest_q014",
+      id: "pretest_q013",
       type: "radio",
       questionaire:
-        "Which LGU personnel should be present when the issue or problem for the digital democracy initiative is to be identified ?",
+        "Which LGU personnel should have a buy-in when the issue or problem for the digital democracy initiative is to be identified?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1469,11 +1456,36 @@ const pretest = {
         },
         {
           choiceId: "pretest_c003",
-          value: "Public Information Officer",
+          value: "Mayor",
         },
         {
           choiceId: "pretest_c004",
-          value: "Mayor",
+          value: "Any of the above. All LGU officials can identify problems.",
+        },
+      ],
+    },
+    {
+      id: "pretest_q014",
+      type: "radio",
+      questionaire:
+        "What should the LGU officials do after the closing assembly and after policies have been designed?",
+      choices: [
+        {
+          choiceId: "pretest_c001",
+          value: "Completely close, and move on to the next project.",
+        },
+        {
+          choiceId: "pretest_c002",
+          value: "Gather feedback again for continuous improvement.",
+        },
+        {
+          choiceId: "pretest_c003",
+          value: "Reuse the methods employed to inform other policies.",
+        },
+        {
+          choiceId: "pretest_c004",
+          value:
+            "Convene after 6 months to give way for a fresh perspective on the next initiative.",
         },
       ],
     },
@@ -1488,23 +1500,23 @@ const posttest = {
       id: "posttest_q001",
       type: "radio",
       questionaire:
-        "Digital Democracy is all about using information and _______________to boost democracy and to get more people involved sa government decision-making.",
+        "Digital Democracy is all about using information and THIS to boost democracy and to get more people involved in government decision-making.",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "communities and their tools",
+          value: "Communities and their tools",
         },
         {
           choiceId: "posttest_c002",
-          value: "communication technology, or ICT,",
+          value: "Communication technology, or ICT",
         },
         {
           choiceId: "posttest_c003",
-          value: "collaborative technology",
+          value: "Collaborative technology",
         },
         {
           choiceId: "posttest_c004",
-          value: "communication theories",
+          value: "Communication theories",
         },
       ],
     },
@@ -1512,7 +1524,7 @@ const posttest = {
       id: "posttest_q002",
       type: "radio",
       questionaire:
-        "Digital Democracy may replace traditional face-to-face consultations",
+        "TRUE or FALSE: Digital Democracy may replace traditional face-to-face consultations",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1528,7 +1540,7 @@ const posttest = {
       id: "posttest_q003",
       type: "radio",
       questionaire:
-        "This thing is what you need to take into consideration when assessing your community’s digital infrastructure landscape.",
+        "This is what you need to consider when assessing your community’s digital infrastructure landscape.",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1579,7 +1591,7 @@ const posttest = {
       id: "posttest_q005",
       type: "radio",
       questionaire:
-        "This helps to break down complex issues into manageable parts to identify root causes and their interrelationships.",
+        "What helps break down complex issues into manageable parts by identifying the root causes, its effects and their interrelationships?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1610,11 +1622,11 @@ const posttest = {
         },
         {
           choiceId: "posttest_c002",
-          value: "X",
+          value: '"X (formerly Twitter)"',
         },
         {
           choiceId: "posttest_c003",
-          value: "Po.Is",
+          value: "Pol.is",
         },
         {
           choiceId: "posttest_c004",
@@ -1626,7 +1638,7 @@ const posttest = {
       id: "posttest_q007",
       type: "radio",
       questionaire:
-        "In formulating survey questions, what particular legislation is important in aiding your data's reliability and ensuring your respondent's trust?",
+        "In formulating survey questions, what particular legislation is important in aiding your data's reliability and ensuring your respondents' trust?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1650,23 +1662,27 @@ const posttest = {
       id: "posttest_q008",
       type: "radio",
       questionaire:
-        "The success of a digital democracy initiative relies on the..",
+        "Which of the following is an important factor to consider in implementing your Digital Democracy initiative?",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "Swift implementation of your roadmap",
+          value:
+            "Swift implementation of your roadmap to maintain a strict schedule",
         },
         {
           choiceId: "posttest_c002",
-          value: "Flexible pace of your timeline",
+          value:
+            "Flexible pace of your timeline according to the needs of your stakeholders in each process",
         },
         {
           choiceId: "posttest_c003",
-          value: "Number of respondents of your questionnaire",
+          value:
+            "Having a strict number of respondents and gathering more respondents if the number is not met",
         },
         {
           choiceId: "posttest_c004",
-          value: "Ability to yield a high reach in your social media campaigns",
+          value:
+            "High reach of your social media campaigns to all possible channels to promote the initiative",
         },
       ],
     },
@@ -1674,22 +1690,24 @@ const posttest = {
       id: "posttest_q009",
       type: "radio",
       questionaire:
-        "Adapting a multi-sectoral approach is highly suggested for all digital democracy initiatives at all times",
+        "TRUE or FALSE: Adapting a multi-sectoral approach is highly suggested for all digital democracy initiatives at all times.",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "TRUE",
+          value:
+            "True, because one may never know if the policy may indirectly affect all the constituents.",
         },
         {
           choiceId: "posttest_c002",
-          value: "FALSE",
+          value:
+            "False, because having a targetted approach may help in better policy-making for the sector in direct need of the Digital Democracy initiative.",
         },
       ],
     },
     {
       id: "posttest_q010",
       type: "radio",
-      questionaire: "When data is analyzed,  data scientists may....",
+      questionaire: "When data is analyzed,  data scientists may...",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1710,58 +1728,37 @@ const posttest = {
           value:
             "visualize and keep the results as simple when it comes to the presentation proper.",
         },
+        {
+          choiceId: "posttest_c005",
+          value: "All of the above",
+        },
       ],
     },
     {
       id: "posttest_q011",
       type: "radio",
       questionaire:
-        "Right after the results are shared to the assembly, and policies are designed according to the recommendations of the stakeholdersthe digital democracy initiative may...",
+        "Should digital democracy initiatives employ a multi-sectoral stakeholder approach to ensure success?",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "completely close, and move on to the next project.",
+          value:
+            "Yes, as all sectors regardless of their involvement, always need to participate in good governance.",
         },
         {
           choiceId: "posttest_c002",
-          value: "gather feedback again for continuous improvement.",
+          value:
+            "At times, especially if there is a targeted sector who is directly involved and affected by the issue or policy at hand. ",
         },
         {
           choiceId: "posttest_c003",
-          value: "reuse the methods used in other to inform other policies.",
-        },
-        {
-          choiceId: "posttest_c004",
           value:
-            "convene after 6 months to give way for a fresh perspective on the next initiative.",
+            "No, as there should always be one targeted sector for every policy.",
         },
       ],
     },
     {
       id: "posttest_q012",
-      type: "radio",
-      questionaire:
-        "Digital Democracy initiatives employ a multi-sectoral stakeholder approach",
-      choices: [
-        {
-          choiceId: "posttest_c001",
-          value:
-            "Always, as all sectors need to participate in good governance",
-        },
-        {
-          choiceId: "posttest_c002",
-          value:
-            "At times, especially if the sector targetted is directly involved and affected by the issue or policy at hand.",
-        },
-        {
-          choiceId: "pposttest_c003",
-          value:
-            "Never, as there should always be a targetted sector for each and every policy.",
-        },
-      ],
-    },
-    {
-      id: "posttest_q013",
       type: "radio",
       questionaire:
         "Which of the following is NOT a characteristic of good governance?",
@@ -1785,10 +1782,10 @@ const posttest = {
       ],
     },
     {
-      id: "posttest_q014",
+      id: "posttest_q013",
       type: "radio",
       questionaire:
-        "Which LGU personnel should be present when the issue or problem for the digital democracy initiative is to be identified ?",
+        "Which LGU personnel should have a buy-in when the issue or problem for the digital democracy initiative is to be identified?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1800,11 +1797,36 @@ const posttest = {
         },
         {
           choiceId: "posttest_c003",
-          value: "Public Information Officer",
+          value: "Mayor",
         },
         {
           choiceId: "posttest_c004",
-          value: "Mayor",
+          value: "Any of the above. All LGU officials can identify problems.",
+        },
+      ],
+    },
+    {
+      id: "posttest_q014",
+      type: "radio",
+      questionaire:
+        "What should the LGU officials do after the closing assembly and after policies have been designed?",
+      choices: [
+        {
+          choiceId: "posttest_c001",
+          value: "Completely close, and move on to the next project.",
+        },
+        {
+          choiceId: "posttest_c002",
+          value: "Gather feedback again for continuous improvement.",
+        },
+        {
+          choiceId: "posttest_c003",
+          value: "Reuse the methods employed to inform other policies.",
+        },
+        {
+          choiceId: "posttest_c004",
+          value:
+            "Convene after 6 months to give way for a fresh perspective on the next initiative.",
         },
       ],
     },
