@@ -373,9 +373,9 @@ const generateCertSrvc = async (id) => {
     const pdfBuffer = await createPdfBuffer(html);
     const email = user.email;
     const emailAttachment = {
-      path: __dirname + "/../test1.pdf",
       filename: `test.pdf`,
-      contentType: "contentType",
+      content: pdfBuffer.toString("base64"),
+      encoding: "base64",
     };
     const emailContent = {
       text: "Congratulations for finishing the Digital Democracy Course! Attached is your certificate.",
