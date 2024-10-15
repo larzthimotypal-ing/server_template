@@ -357,6 +357,7 @@ const createPdfBuffer = async (html) => {
       //   </div>`,
     });
     await browser.close();
+    return pdfBuffer;
   } catch (error) {
     console.log(error);
   }
