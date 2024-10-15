@@ -90,8 +90,10 @@ const saveQuizResponseCtrl = async (req, res, next) => {
 };
 
 const generateCertCtrl = async (req, res, next) => {
+  const user = req.user;
   try {
-    await generateCertSrvc("larzthimoty2421@gmail.com");
+    const result = await generateCertSrvc(user.id);
+    if (errorHandler.isTrustedError(result)) return next(result);
     return res.status(HttpStatusCodes.OK).json({
       success: true,
       message: "Email Sent successfully",

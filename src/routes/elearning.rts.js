@@ -25,6 +25,6 @@ router
   .get(authGuard, getQuizCtrl)
   .post(authGuard, saveQuizResponseCtrl);
 
-router.route("/certificate").get(generateCertCtrl);
+router.route("/certificate").get(authGuard, generateCertCtrl);
 
 module.exports = router;

@@ -362,10 +362,16 @@ const createPdfBuffer = async (html) => {
   }
 };
 
-const generateCertSrvc = async (email) => {
+const generateCertSrvc = async (id) => {
   try {
-    const html = Ecert({ name: "Test", date: new Date() });
+    const user = await findUserById(id);
+    const personal = await findPersonalInfoById(id);
+    const html = Ecert({
+      name: `${personal.firstName} ${personal.lastName}`,
+      date: new Date(),
+    });
     const pdfBuffer = await createPdfBuffer(html);
+    const email = user.email;
     const emailAttachment = {
       path: __dirname + "/../test1.pdf",
       filename: `test.pdf`,
@@ -380,9 +386,18 @@ const generateCertSrvc = async (email) => {
       emailContent,
       email
     );
-    console.log("SUCCESS");
+    return emailResult;
   } catch (error) {
+    logger.trace(
+      "SRVC ERROR: Was not able to generate and email the certificate"
+    );
     logger.error(error);
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user profile"
+    );
   }
 };
 
