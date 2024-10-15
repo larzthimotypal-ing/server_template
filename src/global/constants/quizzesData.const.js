@@ -2172,7 +2172,7 @@ const postSurvey = {
     },
     {
       id: "postsurvey_q014",
-      type: "radio",
+      type: "text",
       questionaire:
         "Is there any additional feedback you would like to provide?",
     },
