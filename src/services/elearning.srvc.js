@@ -189,18 +189,6 @@ const createKtcSrvc = async (quizId, ktc) => {
 
 const saveQuizResponseSrvc = async (userId, quizId, answers) => {
   try {
-    const ktcResult = await getKtc(quizId);
-
-    const ktc = ktcResult.ktc;
-    if (!ktc) {
-      return new APIError(
-        "SERVICE",
-        HttpStatusCodes.NOT_FOUND,
-        true,
-        "Quiz does not exist"
-      );
-    }
-
     const arraysMatch = (arr1, arr2) => {
       if (arr1.length !== arr2.length) return false;
 
@@ -214,18 +202,47 @@ const saveQuizResponseSrvc = async (userId, quizId, answers) => {
       }
       return true;
     };
-    let correct = [];
-    let incorrect = [];
-    answers.forEach((a) => {
-      const ktcItem = ktc.find((k) => k.id === a.id);
-      if (ktcItem) {
-        const answersMatch = arraysMatch(a.answers, ktcItem.answers);
-        if (answersMatch) {
-          correct.push({
-            id: a.id,
-            answer: a.answers,
-            correctAnswer: ktcItem.answers,
-          });
+
+    let quizResult;
+    if (quizId === "dd_postsurvey") {
+      quizResult = {
+        correctAnswers: [],
+        incorrectAnswers: [],
+        grade: 0,
+        passed: true,
+      };
+    } else {
+      const ktcResult = await getKtc(quizId);
+
+      const ktc = ktcResult.ktc;
+      if (!ktc) {
+        return new APIError(
+          "SERVICE",
+          HttpStatusCodes.NOT_FOUND,
+          true,
+          "Quiz does not exist"
+        );
+      }
+
+      let correct = [];
+      let incorrect = [];
+      answers.forEach((a) => {
+        const ktcItem = ktc.find((k) => k.id === a.id);
+        if (ktcItem) {
+          const answersMatch = arraysMatch(a.answers, ktcItem.answers);
+          if (answersMatch) {
+            correct.push({
+              id: a.id,
+              answer: a.answers,
+              correctAnswer: ktcItem.answers,
+            });
+          } else {
+            incorrect.push({
+              id: a.id,
+              answer: a.answers,
+              correctAnswer: ktcItem.answers,
+            });
+          }
         } else {
           incorrect.push({
             id: a.id,
@@ -233,23 +250,18 @@ const saveQuizResponseSrvc = async (userId, quizId, answers) => {
             correctAnswer: ktcItem.answers,
           });
         }
-      } else {
-        incorrect.push({
-          id: a.id,
-          answer: a.answers,
-          correctAnswer: ktcItem.answers,
-        });
-      }
-    });
-    const grade = correct.length / (correct.length + incorrect.length);
-    const passed = grade >= 0.8;
+      });
+      const grade = correct.length / (correct.length + incorrect.length);
+      const passed = grade >= 0.8;
 
-    const quizResult = {
-      correctAnswers: correct,
-      incorrectAnswers: incorrect,
-      grade,
-      passed,
-    };
+      quizResult = {
+        correctAnswers: correct,
+        incorrectAnswers: incorrect,
+        grade,
+        passed,
+      };
+    }
+
     let quizResponse;
     const currentQuizResponse = await getQuizResponse(quizId, userId);
     if (!currentQuizResponse) {
