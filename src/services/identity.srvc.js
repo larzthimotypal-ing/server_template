@@ -386,6 +386,7 @@ const generateCertSrvc = async (id) => {
       emailContent,
       email
     );
+    logger.info(emailResult);
     return emailResult;
   } catch (error) {
     logger.trace(
