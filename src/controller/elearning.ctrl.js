@@ -90,7 +90,6 @@ const saveQuizResponseCtrl = async (req, res, next) => {
 };
 
 const generateCertCtrl = async (req, res, next) => {
-  logger.info("LARZ");
   const user = req.user;
   try {
     const result = await generateCertSrvc(user.id);

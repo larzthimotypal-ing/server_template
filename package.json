@@ -4,6 +4,7 @@
   "description": "MBC Elearning Server",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npx puppeteer install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"

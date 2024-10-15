@@ -333,6 +333,7 @@ const createPdfBuffer = async (html) => {
   try {
     const puppeteerLaunchOptions = {
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: "new",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
     const page = await browser.newPage();
