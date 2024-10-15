@@ -24,6 +24,8 @@ const PORT = 10000 || process.env.PORT;
 
 const path = require("path");
 
+process.env.PUPPETEER_CACHE_DIR = "/tmp/puppeteer_cache";
+
 //express config
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
