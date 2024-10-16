@@ -143,6 +143,20 @@ app.get("/", (req, res) => {
   res.send("REST API Authentication and Authorization");
 });
 
+app.get("/check-chrome", async (req, res) => {
+  const chromePath = "/tmp/puppeteer_cache/chrome-linux/chrome";
+
+  try {
+    if (fs.existsSync(chromePath)) {
+      res.send("Chromium found at: " + chromePath);
+    } else {
+      res.status(404).send("Chromium NOT found in /tmp.");
+    }
+  } catch (error) {
+    res.status(500).send("Error checking Chromium: " + error.message);
+  }
+});
+
 //Routes
 app.use("/api", identity);
 app.use("/api/elearning", elearning);
