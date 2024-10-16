@@ -340,7 +340,8 @@ const createPdfBuffer = async (html) => {
         "--no-zygote",
         "--single-process",
       ],
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      executablePath:
+        "/opt/render/project/.render/chrome/opt/google/chrome/chrome",
       headless: "new",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);

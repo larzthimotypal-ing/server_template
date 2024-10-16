@@ -12,7 +12,9 @@ const { connectDB } = require("./config/db.js");
 const setResponseHeadersMW = require("./global/middlewares/setResponseHeader.mw.js");
 const errorMW = require("./global/middlewares/error.mw.js");
 const apiLoggerMW = require("./global/middlewares/apiLogger.mw.js");
+const { exec } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 //Routes
 const identity = require("./routes/identity.rts.js");
 const elearning = require("./routes/elearning.rts.js");
@@ -23,10 +25,71 @@ const { createQuizScript } = require("./scripts/createQuizScript.js");
 const app = express();
 const PORT = 10000 || process.env.PORT;
 
-const path = require("path");
+const STORAGE_DIR = "/opt/render/project/.render/chrome";
+// Function to execute shell commands
+const execCommand = (cmd) =>
+  new Promise((resolve, reject) => {
+    exec(cmd, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        reject(error);
+      } else if (stderr) {
+        console.error(`Stderr: ${stderr}`);
+        resolve(stderr);
+      } else {
+        console.log(`Stdout: ${stdout}`);
+        resolve(stdout);
+      }
+    });
+  });
+
+// Function to download Chrome if not already cached
+const setupChrome = async () => {
+  try {
+    if (!fs.existsSync(STORAGE_DIR)) {
+      console.log("...Downloading Chrome");
+      fs.mkdirSync(STORAGE_DIR, { recursive: true });
+
+      // Change directory to the storage path
+      process.chdir(STORAGE_DIR);
+
+      // Download Chrome .deb package
+      await execCommand(
+        "wget -P ./ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+      );
+
+      // Extract the .deb package
+      await execCommand(
+        `dpkg -x ./google-chrome-stable_current_amd64.deb ${STORAGE_DIR}`
+      );
+
+      // Clean up the .deb package
+      await execCommand("rm ./google-chrome-stable_current_amd64.deb");
+
+      console.log("Chrome setup complete.");
+    } else {
+      console.log("...Using Chrome from cache");
+    }
+
+    // Change back to the original project directory
+    process.chdir(path.resolve(__dirname));
+  } catch (error) {
+    console.error("Error setting up Chrome:", error);
+    throw error;
+  }
+};
+
+// Call the setup function
+setupChrome()
+  .then(() => {
+    console.log("Chrome is ready to use.");
+  })
+  .catch((error) => {
+    console.error("Failed to setup Chrome:", error);
+  });
 
 app.get("/check-chrome", async (req, res) => {
-  const chromePath = "/tmp/puppeteer_cache/chrome-linux/chrome";
+  const chromePath = "/opt/render/project/.render/chrome";
 
   try {
     if (fs.existsSync(chromePath)) {
