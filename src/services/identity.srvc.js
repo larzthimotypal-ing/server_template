@@ -336,13 +336,15 @@ const createPdfBuffer = async (html) => {
         "--no-sandbox",
         "--disable-setuid-sandbox",
         "--disable-dev-shm-usage",
+        "--disable-accelerated-2d-canvas",
         "--disable-gpu",
+        "--no-first-run",
         "--no-zygote",
-        "--single-process",
+        "--single-process", // Important for some environments
+        "--headless=new", // Use the new headless mode
       ],
       executablePath:
         "/opt/render/project/.render/chrome/opt/google/chrome/chrome",
-      headless: "new",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
     const page = await browser.newPage();
