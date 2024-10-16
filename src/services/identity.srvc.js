@@ -332,7 +332,19 @@ const verifyResetTokenSrvc = async (token, newPassword) => {
 const createPdfBuffer = async (html) => {
   try {
     const puppeteerLaunchOptions = {
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-accelerated-2d-canvas",
+        "--disable-gpu",
+        "--no-first-run",
+        "--no-zygote",
+        "--single-process", // Important for some environments
+        "--headless=new", // Use the new headless mode
+      ],
+      executablePath:
+        "/opt/render/project/.render/chrome/opt/google/chrome/chrome",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
     const page = await browser.newPage();
@@ -348,11 +360,18 @@ const createPdfBuffer = async (html) => {
         bottom: "0",
         left: "0",
       },
+      // displayHeaderFooter: true,
+      // headerTemplate: `
+      // '<div style="font-family: Helvetica, sans-serif; font-size: 20px; text-align: center; margin-top:30px; font-weight: bold;  width: 100%; position: absolute; top: 0; left: 0;">Career Discovery with Dr. J. Procter <hr style="border: none; border-top: 1px solid black; margin-top: 2mm;" /></div>',
+      // `,
+      // footerTemplate: ` <div style="font-size: 10px; padding-top: 5px; text-align: center; width: 100%;">
+      //     <span>Self-Directed Search</span> - <span class="pageNumber"></span>
+      //   </div>`,
     });
     await browser.close();
     return pdfBuffer;
   } catch (error) {
-    logger.error(error);
+    console.log(error);
   }
 };
 
@@ -367,8 +386,9 @@ const generateCertSrvc = async (id) => {
     const pdfBuffer = await createPdfBuffer(html);
     const email = user.email;
     const emailAttachment = {
-      filename: `certificate.pdf`,
-      content: pdfBuffer,
+      filename: `test.pdf`,
+      content: pdfBuffer.toString("base64"),
+      encoding: "base64",
     };
     const emailContent = {
       text: "Congratulations for finishing the Digital Democracy Course! Attached is your certificate.",
@@ -379,6 +399,7 @@ const generateCertSrvc = async (id) => {
       emailContent,
       email
     );
+    logger.info(emailResult);
     return emailResult;
   } catch (error) {
     logger.trace(
