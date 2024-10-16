@@ -332,7 +332,12 @@ const verifyResetTokenSrvc = async (token, newPassword) => {
 const createPdfBuffer = async (html) => {
   try {
     const puppeteerLaunchOptions = {
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--single-proces",
+        "--no-zygote",
+      ],
       headless: "new",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
