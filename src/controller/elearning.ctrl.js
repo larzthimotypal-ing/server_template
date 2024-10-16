@@ -10,7 +10,7 @@ const {
   saveQuizResponseSrvc,
   updateLessonProgressSrvc,
 } = require("../services/elearning.srvc.js");
-const { generateCertSrvc } = require("../services/identity.srvc.js");
+const { generateCertSrvc, sendEmailCert } = require("../services/identity.srvc.js");
 
 const getCourseProgressCtrl = async (req, res, next) => {
   const user = req.user;
@@ -92,7 +92,24 @@ const saveQuizResponseCtrl = async (req, res, next) => {
 const generateCertCtrl = async (req, res, next) => {
   const user = req.user;
   try {
-    const result = await generateCertSrvc(user.id);
+    const result = await sendEmailCert(user.id);
+    if (errorHandler.isTrustedError(result)) return next(result);
+    return res.status(HttpStatusCodes.OK).json({
+      success: true,
+      message: "Email Sent successfully",
+    });
+  } catch (error) {
+    logger.trace("CTRL ERROR: Was not able to save quiz response");
+    next(error);
+  }
+};
+
+const generateCertCtrlInternal = async (req, res, next) => {
+  // const user = req.user;
+  const {id} = req.body
+  try {
+    //const result = await generateCertSrvc(user.id);
+    const result = await generateCertSrvc(id);
     if (errorHandler.isTrustedError(result)) return next(result);
     return res.status(HttpStatusCodes.OK).json({
       success: true,
@@ -110,4 +127,5 @@ module.exports = {
   getQuizCtrl,
   saveQuizResponseCtrl,
   generateCertCtrl,
+  generateCertCtrlInternal
 };

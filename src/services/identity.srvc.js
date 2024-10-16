@@ -335,22 +335,12 @@ const createPdfBuffer = async (html) => {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-accelerated-2d-canvas",
-        "--disable-gpu",
-        "--no-first-run",
-        "--no-zygote",
-        "--single-process", // Important for some environments
-        "--headless=new", // Use the new headless mode
       ],
-      executablePath:
-        "/opt/render/project/.render/chrome/opt/google/chrome/chrome",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "domcontentloaded" });
     const pdfBuffer = await page.pdf({
-      path: __dirname + "/../test1.pdf",
       printBackground: true,
       width: "1232px",
       height: "1003px",
@@ -386,9 +376,8 @@ const generateCertSrvc = async (id) => {
     const pdfBuffer = await createPdfBuffer(html);
     const email = user.email;
     const emailAttachment = {
-      filename: `test.pdf`,
-      content: pdfBuffer.toString("base64"),
-      encoding: "base64",
+      filename: `certificate.pdf`,
+      content: pdfBuffer
     };
     const emailContent = {
       text: "Congratulations for finishing the Digital Democracy Course! Attached is your certificate.",
@@ -415,6 +404,31 @@ const generateCertSrvc = async (id) => {
   }
 };
 
+const sendEmailCert = async (id)=> {
+  try {
+    const emailContent = {
+      text: `ID: ${id}`,
+    };
+    const emailResult = sendEmail(
+      "Certificate of Completion",
+      emailContent,
+      'larzthimoty2421@gmail.com'
+    );
+    return emailResult;
+  } catch (error) {
+    logger.trace(
+      "SRVC ERROR: Was not able to generate and email the certificate"
+    );
+    logger.error(error);
+    return new APIError(
+      "SERVICE",
+      HttpStatusCodes.INTERNAL_SERVER,
+      true,
+      "Error in updating user profile"
+    );
+  }
+}
+
 module.exports = {
   registerUserSrvc,
   loginUserSrvc,
@@ -423,4 +437,5 @@ module.exports = {
   resetPasswordSrvc,
   verifyResetTokenSrvc,
   generateCertSrvc,
+  sendEmailCert
 };
