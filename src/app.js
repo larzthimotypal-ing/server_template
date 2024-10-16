@@ -145,13 +145,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/check-chrome", async (req, res) => {
-  const chromePath = "/tmp/puppeteer_cache/chrome-linux/chrome";
+  const chromePath = "/opt/render/project/.render/chrome";
 
   try {
     if (fs.existsSync(chromePath)) {
       res.send("Chromium found at: " + chromePath);
     } else {
-      res.status(404).send("Chromium NOT found in /tmp.");
+      res.status(404).send(`Chromium NOT found in ${chromePath}`);
     }
   } catch (error) {
     res.status(500).send("Error checking Chromium: " + error.message);
