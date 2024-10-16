@@ -15,6 +15,7 @@ const apiLoggerMW = require("./global/middlewares/apiLogger.mw.js");
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 //Routes
 const identity = require("./routes/identity.rts.js");
 const elearning = require("./routes/elearning.rts.js");
