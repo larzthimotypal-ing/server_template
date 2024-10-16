@@ -12,6 +12,7 @@ const { connectDB } = require("./config/db.js");
 const setResponseHeadersMW = require("./global/middlewares/setResponseHeader.mw.js");
 const errorMW = require("./global/middlewares/error.mw.js");
 const apiLoggerMW = require("./global/middlewares/apiLogger.mw.js");
+const fs = require("fs");
 //Routes
 const identity = require("./routes/identity.rts.js");
 const elearning = require("./routes/elearning.rts.js");
