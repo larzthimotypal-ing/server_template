@@ -335,9 +335,12 @@ const createPdfBuffer = async (html) => {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--single-proces",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
         "--no-zygote",
+        "--single-process",
       ],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       headless: "new",
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);

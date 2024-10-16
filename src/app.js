@@ -25,6 +25,8 @@ const PORT = 10000 || process.env.PORT;
 const path = require("path");
 
 process.env.PUPPETEER_CACHE_DIR = "/tmp/puppeteer_cache";
+process.env.PUPPETEER_EXECUTABLE_PATH =
+  "/tmp/puppeteer_cache/chrome-linux/chrome";
 
 //express config
 app.use(express.json());
