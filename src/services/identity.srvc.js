@@ -65,9 +65,9 @@ const registerUserSrvc = async (email, password, personalInfo, orgInfo) => {
     const emailContent = { html: WelcomeEmail(`${firstName} ${lastName}`) };
 
     const emailResult = await sendEmail(
-      "Certificate of Completion",
+      "Welcome to Digital Democracy Course!",
       emailContent,
-      "larzthimoty2421@gmail.com"
+      user.email
     );
 
     return {
