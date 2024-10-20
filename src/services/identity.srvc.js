@@ -30,6 +30,7 @@ const {
   updatePersonalInfoById,
   updateUser,
 } = require("../data/repo/identity.repo.js");
+const WelcomeEmail = require("../global/constants/email/welcome.const.js");
 
 const registerUserSrvc = async (email, password, personalInfo, orgInfo) => {
   const { firstName, lastName, mobileNumber } = personalInfo;
@@ -60,6 +61,14 @@ const registerUserSrvc = async (email, password, personalInfo, orgInfo) => {
       mobileNumber
     );
     const organization = await createOrgInfo(id, orgUnit, orgEmail, position);
+
+    const emailContent = { html: WelcomeEmail(`${firstName} ${lastName}`) };
+
+    const emailResult = await sendEmail(
+      "Certificate of Completion",
+      emailContent,
+      "larzthimoty2421@gmail.com"
+    );
 
     return {
       email: user.email,
@@ -332,10 +341,7 @@ const verifyResetTokenSrvc = async (token, newPassword) => {
 const createPdfBuffer = async (html) => {
   try {
     const puppeteerLaunchOptions = {
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-      ],
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     };
     var browser = await pupp.launch(puppeteerLaunchOptions);
     const page = await browser.newPage();
@@ -377,7 +383,7 @@ const generateCertSrvc = async (id) => {
     const email = user.email;
     const emailAttachment = {
       filename: `certificate.pdf`,
-      content: pdfBuffer
+      content: pdfBuffer,
     };
     const emailContent = {
       text: "Congratulations for finishing the Digital Democracy Course! Attached is your certificate.",
@@ -404,15 +410,15 @@ const generateCertSrvc = async (id) => {
   }
 };
 
-const sendEmailCert = async (id)=> {
+const sendEmailCert = async (id) => {
   try {
     const emailContent = {
       text: `ID: ${id}`,
     };
-    const emailResult = sendEmail(
+    const emailResult = await sendEmail(
       "Certificate of Completion",
       emailContent,
-      'larzthimoty2421@gmail.com'
+      "larzthimoty2421@gmail.com"
     );
     return emailResult;
   } catch (error) {
@@ -427,7 +433,7 @@ const sendEmailCert = async (id)=> {
       "Error in updating user profile"
     );
   }
-}
+};
 
 module.exports = {
   registerUserSrvc,
@@ -437,5 +443,5 @@ module.exports = {
   resetPasswordSrvc,
   verifyResetTokenSrvc,
   generateCertSrvc,
-  sendEmailCert
+  sendEmailCert,
 };
