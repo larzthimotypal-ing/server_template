@@ -90,7 +90,7 @@ const WelcomeEmail = (name) => {
     
             <p>We encourage you to start exploring the course materials and feel free to reach out if 
             you have any questions. You can log in to the course at any time via this link: 
-            <a href="#">${url}/login</a>.</p>
+            <a href="${url}/login">${url}/login</a>.</p>
     
             <p>Thank you for joining us, and we wish you success in your learning journey!</p>
     
