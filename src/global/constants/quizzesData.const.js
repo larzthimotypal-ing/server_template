@@ -1399,29 +1399,6 @@ const pretest = {
       id: "pretest_q011",
       type: "radio",
       questionaire:
-        "Should digital democracy initiatives employ a multi-sectoral stakeholder approach to ensure success?",
-      choices: [
-        {
-          choiceId: "pretest_c001",
-          value:
-            "Yes, as all sectors regardless of their involvement, always need to participate in good governance.",
-        },
-        {
-          choiceId: "pretest_c002",
-          value:
-            "At times, especially if there is a targeted sector who is directly involved and affected by the issue or policy at hand. ",
-        },
-        {
-          choiceId: "pretest_c003",
-          value:
-            "No, as there should always be one targeted sector for every policy.",
-        },
-      ],
-    },
-    {
-      id: "pretest_q012",
-      type: "radio",
-      questionaire:
         "Which of the following is NOT a characteristic of good governance?",
       choices: [
         {
@@ -1443,7 +1420,7 @@ const pretest = {
       ],
     },
     {
-      id: "pretest_q013",
+      id: "pretest_q012",
       type: "radio",
       questionaire:
         "Which LGU personnel should have a buy-in when the issue or problem for the digital democracy initiative is to be identified?",
@@ -1467,27 +1444,30 @@ const pretest = {
       ],
     },
     {
-      id: "pretest_q014",
+      id: "pretest_q013",
       type: "radio",
       questionaire:
-        "What should the LGU officials do after the closing assembly and after policies have been designed?",
+        "What should the LGU officials do once the digital democracy initiative comes to a close and the policies in connection to this have been designed?",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "Completely close, and move on to the next project.",
+          value:
+            "Completely close the initiative, and move on to the next project.",
         },
         {
           choiceId: "pretest_c002",
-          value: "Gather feedback again for continuous improvement.",
+          value:
+            "Gather feedback again for continuous improvement of the whole digital democracy process.",
         },
         {
           choiceId: "pretest_c003",
-          value: "Reuse the methods employed to inform other policies.",
+          value:
+            "Reuse the methods in the previous digital democracy project to inform towards the creation of new policies.",
         },
         {
           choiceId: "pretest_c004",
           value:
-            "Convene after 6 months to give way for a fresh perspective on the next initiative.",
+            "Convene the digital democracy team after 6 months to give way for a fresh perspective on the next initiative.",
         },
       ],
     },
@@ -1742,29 +1722,6 @@ const posttest = {
       id: "posttest_q011",
       type: "radio",
       questionaire:
-        "Should digital democracy initiatives employ a multi-sectoral stakeholder approach to ensure success?",
-      choices: [
-        {
-          choiceId: "posttest_c001",
-          value:
-            "Yes, as all sectors regardless of their involvement, always need to participate in good governance.",
-        },
-        {
-          choiceId: "posttest_c002",
-          value:
-            "At times, especially if there is a targeted sector who is directly involved and affected by the issue or policy at hand. ",
-        },
-        {
-          choiceId: "posttest_c003",
-          value:
-            "No, as there should always be one targeted sector for every policy.",
-        },
-      ],
-    },
-    {
-      id: "posttest_q012",
-      type: "radio",
-      questionaire:
         "Which of the following is NOT a characteristic of good governance?",
       choices: [
         {
@@ -1786,7 +1743,7 @@ const posttest = {
       ],
     },
     {
-      id: "posttest_q013",
+      id: "posttest_q012",
       type: "radio",
       questionaire:
         "Which LGU personnel should have a buy-in when the issue or problem for the digital democracy initiative is to be identified?",
@@ -1810,27 +1767,30 @@ const posttest = {
       ],
     },
     {
-      id: "posttest_q014",
+      id: "posttest_q013",
       type: "radio",
       questionaire:
-        "What should the LGU officials do after the closing assembly and after policies have been designed?",
+        "What should the LGU officials do once the digital democracy initiative comes to a close and the policies in connection to this have been designed?",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "Completely close, and move on to the next project.",
+          value:
+            "Completely close the initiative, and move on to the next project.",
         },
         {
           choiceId: "posttest_c002",
-          value: "Gather feedback again for continuous improvement.",
+          value:
+            "Gather feedback again for continuous improvement of the whole digital democracy process.",
         },
         {
           choiceId: "posttest_c003",
-          value: "Reuse the methods employed to inform other policies.",
+          value:
+            "Reuse the methods in the previous digital democracy project to inform towards the creation of new policies.",
         },
         {
           choiceId: "posttest_c004",
           value:
-            "Convene after 6 months to give way for a fresh perspective on the next initiative.",
+            "Convene the digital democracy team after 6 months to give way for a fresh perspective on the next initiative.",
         },
       ],
     },

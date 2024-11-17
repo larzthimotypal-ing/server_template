@@ -95,10 +95,9 @@ const pretestktc = {
     { id: "pretest_q008", answers: ["pretest_c002"] },
     { id: "pretest_q009", answers: ["pretest_c002"] },
     { id: "pretest_q010", answers: ["pretest_c005"] },
-    { id: "pretest_q011", answers: ["pretest_c002"] },
-    { id: "pretest_q012", answers: ["pretest_c003"] },
-    { id: "pretest_q013", answers: ["pretest_c004"] },
-    { id: "pretest_q014", answers: ["pretest_c002"] },
+    { id: "pretest_q011", answers: ["pretest_c003"] },
+    { id: "pretest_q012", answers: ["pretest_c004"] },
+    { id: "pretest_q013", answers: ["pretest_c002"] },
   ],
 };
 
@@ -115,10 +114,9 @@ const posttestktc = {
     { id: "posttest_q008", answers: ["posttest_c002"] },
     { id: "posttest_q009", answers: ["posttest_c002"] },
     { id: "posttest_q010", answers: ["posttest_c005"] },
-    { id: "posttest_q011", answers: ["posttest_c002"] },
-    { id: "posttest_q012", answers: ["posttest_c003"] },
-    { id: "posttest_q013", answers: ["posttest_c004"] },
-    { id: "posttest_q014", answers: ["posttest_c002"] },
+    { id: "posttest_q011", answers: ["posttest_c003"] },
+    { id: "posttest_q012", answers: ["posttest_c004"] },
+    { id: "posttest_q013", answers: ["posttest_c002"] },
   ],
 };
 
