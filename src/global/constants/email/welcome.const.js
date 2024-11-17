@@ -82,7 +82,7 @@ const WelcomeEmail = (name) => {
                 characteristics of good governance, Assessing the landscape, and more.</li>
     
                 <li><span class="faq-question">6. Is the course self-paced?</span><br>
-                Yes, the course is self-paced, allowing you to complete it at your own convenience within [X] weeks.</li>
+                Yes. While it may take approximately 6 hours to go through all the modules, case studies, templates, and quizzes, the course is self-paced, allowing you to complete it at your own convenience. This course is available until November 2025.</li>
     
                 <li><span class="faq-question">7. What is the passing score for the test?</span><br>
                 You will need to achieve a score of at least 80% to pass the final test and earn your certificate.</li>

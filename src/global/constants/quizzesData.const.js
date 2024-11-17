@@ -1159,11 +1159,11 @@ const pretest = {
       id: "pretest_q001",
       type: "radio",
       questionaire:
-        "Digital Democracy is all about using information and THIS to boost democracy and to get more people involved in government decision-making.",
+        "Which of the following can be utilized to get more people involved in the decision-making process of your Digital Democracy initiative? ",
       choices: [
         {
           choiceId: "pretest_c001",
-          value: "Communities and their tools",
+          value: "Communities and the tools available in their LGUs",
         },
         {
           choiceId: "pretest_c002",
@@ -1171,11 +1171,11 @@ const pretest = {
         },
         {
           choiceId: "pretest_c003",
-          value: "Collaborative technology",
+          value: "Pep talks and town halls",
         },
         {
           choiceId: "pretest_c004",
-          value: "Communication theories",
+          value: "Information campaigns ",
         },
       ],
     },
@@ -1199,7 +1199,7 @@ const pretest = {
       id: "pretest_q003",
       type: "radio",
       questionaire:
-        "This is what you need  to consider when assessing your community’s digital infrastructure landscape.",
+        "What do you need to consider when assessing your community’s digital infrastructure landscape?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1250,7 +1250,7 @@ const pretest = {
       id: "pretest_q005",
       type: "radio",
       questionaire:
-        "What helps break down complex issues into manageable parts by identifying the root causes, its effects and their interrelationships?",
+        "What tool from your Digital Democracy initiative helps break down complex issues into manageable parts by identifying the root causes, their effects and their interrelationships?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1273,7 +1273,8 @@ const pretest = {
     {
       id: "pretest_q006",
       type: "radio",
-      questionaire: "Which of the following is NOT a social media platform?",
+      questionaire:
+        "Which of the following can be used in your Digital Democracy initiative to analyze your data?",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1366,7 +1367,8 @@ const pretest = {
     {
       id: "pretest_q010",
       type: "radio",
-      questionaire: "When data is analyzed,  data scientists may...",
+      questionaire:
+        "When the data gathered from your Digital Democracy initiative is analyzed, your data scientists may...",
       choices: [
         {
           choiceId: "pretest_c001",
@@ -1500,11 +1502,11 @@ const posttest = {
       id: "posttest_q001",
       type: "radio",
       questionaire:
-        "Digital Democracy is all about using information and THIS to boost democracy and to get more people involved in government decision-making.",
+        "Which of the following can be utilized to get more people involved in the decision-making process of your Digital Democracy initiative? ",
       choices: [
         {
           choiceId: "posttest_c001",
-          value: "Communities and their tools",
+          value: "Communities and the tools available in their LGUs",
         },
         {
           choiceId: "posttest_c002",
@@ -1512,11 +1514,11 @@ const posttest = {
         },
         {
           choiceId: "posttest_c003",
-          value: "Collaborative technology",
+          value: "Pep talks and town halls",
         },
         {
           choiceId: "posttest_c004",
-          value: "Communication theories",
+          value: "Information campaigns ",
         },
       ],
     },
@@ -1540,7 +1542,7 @@ const posttest = {
       id: "posttest_q003",
       type: "radio",
       questionaire:
-        "This is what you need to consider when assessing your community’s digital infrastructure landscape.",
+        "What do you need to consider when assessing your community’s digital infrastructure landscape?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1591,7 +1593,7 @@ const posttest = {
       id: "posttest_q005",
       type: "radio",
       questionaire:
-        "What helps break down complex issues into manageable parts by identifying the root causes, its effects and their interrelationships?",
+        "What tool from your Digital Democracy initiative helps break down complex issues into manageable parts by identifying the root causes, their effects and their interrelationships?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1614,7 +1616,8 @@ const posttest = {
     {
       id: "posttest_q006",
       type: "radio",
-      questionaire: "Which of the following is NOT a social media platform?",
+      questionaire:
+        "Which of the following can be used in your Digital Democracy initiative to analyze your data?",
       choices: [
         {
           choiceId: "posttest_c001",
@@ -1707,7 +1710,8 @@ const posttest = {
     {
       id: "posttest_q010",
       type: "radio",
-      questionaire: "When data is analyzed,  data scientists may...",
+      questionaire:
+        "When the data gathered from your Digital Democracy initiative is analyzed, your data scientists may...",
       choices: [
         {
           choiceId: "posttest_c001",
